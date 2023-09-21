@@ -1,23 +1,31 @@
 #include "monty.h"
 
 /**
- * free_list - Frees the linked list
- * @head: A pointer to the top of the stack
- * @fp: File pointer
- * @line: The line to read
- * Return: void
+ * free_stack - Frees the entire stack and associated resources.
+ * @stack_head: A pointer to the top of the stack.
+ * @file_ptr: File pointer to the bytecode file.
+ * @line_buffer: Buffer for reading lines from the file.
+ *
+ * Description:
+ * This function frees the entire stack and any associated resources, such as
+ * the file pointer and line buffer. It iterates through the stack elements
+ * and deallocates memory for each node.
  */
-void free_list(stack_t **head, FILE *fp, char *line)
+void free_stack(stack_t **stack_head, FILE *file_ptr, char *line_buffer)
 {
-	if (*head != 0)
+	if (*stack_head != NULL)
 	{
-		while ((*head)->next)
+		while ((*stack_head)->next != NULL)
 		{
-			(*head) = (*head)->next;
-			free((*head)->prev);
+			*stack_head = (*stack_head)->next;
+			free((*stack_head)->prev);
 		}
-		free(*head);
+		free(*stack_head);
 	}
-	fclose(fp);
-	free(line);
+
+	if (file_ptr != NULL)
+		fclose(file_ptr);
+
+	if (line_buffer != NULL)
+		free(line_buffer);
 }
