@@ -1,3 +1,5 @@
+#ifndef MONTY_H_
+#define MONTY_H_
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -28,4 +30,10 @@ typedef struct instruction_s
         char *opcode;
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+
+void pall(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
+
+
+#endif
 
