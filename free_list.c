@@ -1,39 +1,23 @@
 #include "monty.h"
 
 /**
- * free_stack - frees the singly linked list
- * @head: pointer to list
- * Return: Nothing
+ * free_list - Frees the linked list
+ * @head: A pointer to the top of the stack
+ * @fp: File pointer
+ * @line: The line to read
+ * Return: void
  */
-
-void free_stack(stack_t *head)
+void free_list(stack_t **head, FILE *fp, char *line)
 {
-stack_t *node = head;
-
-if (head == NULL)
-return;
-
-while (head != NULL)
-{
-node = head;
-head = head->next;
-free(node);
-}
-}
-
-/**
- * free_list - frees getline list
- * @a: pointer to array of strings
- * Return: Nothing
- */
-
-void free_list(char *a[])
-{
-int i = 0;
-
-while (a[i] != NULL)
-{
-free(a[i]);
-i++;
-}
+	if (*head != 0)
+	{
+		while ((*head)->next)
+		{
+			(*head) = (*head)->next;
+			free((*head)->prev);
+		}
+		free(*head);
+	}
+	fclose(fp);
+	free(line);
 }
