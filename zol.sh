@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Navigate to your Git repository directory (replace 'your_directory' with your actual directory)
-cd /root/monty
+cd C:/Users/meyow/Documents/GitHub/monty
 
 # Add all changes to the staging area
 git add .
