@@ -48,4 +48,3 @@ int main(int ac, char *av[])
 			} func_op(&h, num_line); }
 	} fclose(file), free(s), monty_free(h);
 	return (0); }
-    

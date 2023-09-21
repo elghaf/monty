@@ -1,28 +1,4 @@
 #include "monty.h"
-
-/**
- * opcode_pall - This program prints all the values on the stack,
- * starting from the top of the stack
- * @stack: This is a pointer to pointer at the head of a stack
- * @count_line: This i s an integer that shows where the commandappear
- */
-void opcode_pall(stack_t **stack, unsigned int count_line)
-{
-	stack_t *ptr;
-
-	(void) count_line;
-
-	ptr = *stack;
-
-	while (ptr)
-	{
-		printf("%d", ptr->n);
-		ptr = ptr->next;
-		printf("\n");
-	}
-}
-
-#include "monty.h"
 /**
  * opcode_push - This is a program that pushes an element to stack
  * @stack: This is the stack that an element would be pushed to
@@ -93,4 +69,28 @@ int _isdigit(char *string)
 	}
 
 	return (0);
+}
+
+#include "monty.h"
+
+/**
+ * opcode_pall - This program prints all the values on the stack,
+ * starting from the top of the stack
+ * @stack: This is a pointer to pointer at the head of a stack
+ * @count_line: This i s an integer that shows where the commandappear
+ */
+void opcode_pall(stack_t **stack, unsigned int count_line)
+{
+	stack_t *ptr;
+
+	(void) count_line;
+
+	ptr = *stack;
+
+	while (ptr)
+	{
+		printf("%d", ptr->n);
+		ptr = ptr->next;
+		printf("\n");
+	}
 }
