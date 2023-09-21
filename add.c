@@ -1,22 +1,25 @@
 #include "monty.h"
 
 /**
- * _add - Adds the top 2 elements of the stack
- * @head: The head of the linked list
- * @line_number: The current line number of the bytecode file
- * Return: Nothing
+ * add_top_two_elements - Adds the top two elements of the stack.
+ * @stack_head: Pointer to the head of the stack.
+ * @line_number: The current line number of the bytecode file.
+ *
+ * Description:
+ * This function adds the top two elements of the stack and replaces
+ * the second element with the result. If the stack does not contain
+ * at least two elements, it prints an error message.
  */
-void _add(stack_t **head, unsigned int line_number)
+void add_top_two_elements(stack_t **stack_head, unsigned int line_number)
 {
-	int sum = 0;
-
-	if (*head == 0 || (*head)->next == 0)
+	if (!stack_head || !*stack_head || !(*stack_head)->next)
 	{
 		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
 		error = 1;
 		return;
 	}
-	sum = ((*head)->n) + (((*head)->next)->n);
-	_pop(head, line_number);
-	(*head)->n = sum;
+
+	int result = (*stack_head)->n + (*stack_head)->next->n;
+	pop_top_element(stack_head, line_number);
+	(*stack_head)->n = result;
 }
