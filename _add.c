@@ -34,6 +34,7 @@ void add_elements_to_stack(stack_t **stack_head, unsigned int line_number)
     free(current_node);
 }
 
+
 /**
  * add_node_to_stack - Adds a new node to the head of the stack.
  * @stack_head: Pointer to the head of the stack.
@@ -48,7 +49,7 @@ void add_node_to_stack(stack_t **stack_head, int new_value)
     new_node = malloc(sizeof(stack_t));
     if (new_node == NULL)
     {
-        printf("Handling Error\n");
+        printf("Error\n"); // You can replace this with error handling appropriate for your application.
         exit(0);
     }
     if (temp_node)
@@ -59,6 +60,7 @@ void add_node_to_stack(stack_t **stack_head, int new_value)
     new_node->prev = NULL;
     *stack_head = new_node;
 }
+
 
 
 /**
