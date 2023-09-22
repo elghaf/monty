@@ -72,8 +72,6 @@ void add_elements_to_stack(stack_t **stack_head, unsigned int line_number);
 void f_nop(stack_t **head, unsigned int counter);
 void f_sub(stack_t **head, unsigned int counter);
 void f_div(stack_t **head, unsigned int counter);
-void f_mul(stack_t **head, unsigned int counter);
-void f_mod(stack_t **head, unsigned int counter);
 void f_pchar(stack_t **head, unsigned int counter);
 void f_pstr(stack_t **head, unsigned int counter);
 void f_rotl(stack_t **head, unsigned int counter);
@@ -84,5 +82,6 @@ void f_queue(stack_t **head, unsigned int counter);
 void f_stack(stack_t **head, unsigned int counter);
 void add_node_to_stack(stack_t **stack_head, int new_value);
 void multiply_top_two_elements(stack_t **stack_head, unsigned int line_number);
+void compute_modulo(stack_t **stack_head, unsigned int line_number);
 
 #endif

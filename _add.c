@@ -96,44 +96,46 @@ void multiply_top_two_elements(stack_t **stack_head, unsigned int line_number)
     free(current_node);
 }
 
-
 /**
- * f_mod - computes the rest of the division of the second
- * top element of the stack by the top element of the stack
- * @head: stack head
- * @counter: line_number
- * Return: no return
-*/
-void f_mod(stack_t **head, unsigned int counter)
+ * compute_modulo - Computes the remainder of the division of the second
+ * top element of the stack by the top element of the stack.
+ * @stack_head: Pointer to the head of the stack.
+ * @line_number: The line number.
+ * Return: No return value.
+ */
+void compute_modulo(stack_t **stack_head, unsigned int line_number)
 {
-	stack_t *h;
-	int len = 0, temp;
+    stack_t *current_node;
+    int stack_length = 0, remainder;
 
-	h = *head;
-	while (h)
-	{
-		h = h->next;
-		len++;
-	}
-	if (len < 2)
-	{
-		fprintf(stderr, "L%d: can't mod, stack too short\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-	h = *head;
-	if (h->n == 0)
-	{
-		fprintf(stderr, "L%d: division by zero\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-	temp = h->next->n % h->n;
-	h->next->n = temp;
-	*head = h->next;
-	free(h);
+    current_node = *stack_head;
+    while (current_node)
+    {
+        current_node = current_node->next;
+        stack_length++;
+    }
+    
+    if (stack_length < 2)
+    {
+        fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
+        fclose(bus.file); // Assuming bus.file is a global variable
+        free(bus.content); // Assuming bus.content is a global variable
+        free_stack(*stack_head); // Assuming free_stack is a function to free the stack
+        exit(EXIT_FAILURE);
+    }
+
+    current_node = *stack_head;
+    if (current_node->n == 0)
+    {
+        fprintf(stderr, "L%d: division by zero\n", line_number);
+        fclose(bus.file); // Assuming bus.file is a global variable
+        free(bus.content); // Assuming bus.content is a global variable
+        free_stack(*stack_head); // Assuming free_stack is a function to free the stack
+        exit(EXIT_FAILURE);
+    }
+
+    remainder = current_node->next->n % current_node->n;
+    current_node->next->n = remainder;
+    *stack_head = current_node->next;
+    free(current_node);
 }

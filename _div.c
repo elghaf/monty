@@ -60,7 +60,7 @@ int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 				{"sub", f_sub},
 				{"div", f_div},
 				{"mul", multiply_top_two_elements},
-				{"mod", f_mod},
+				{"mod", compute_modulo},
 				{"pchar", f_pchar},
 				{"pstr", f_pstr},
 				{"rotl", f_rotl},
