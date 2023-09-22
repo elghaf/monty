@@ -1,132 +1,133 @@
 #include "monty.h"
 
 /**
- * add_to_stack - Adds a node to the head of the stack
- * @stack: Pointer to the head of the stack
- * @n: New value to be added
- * Return: No return value
- */
-void add_to_stack(stack_t **stack, int n)
+ * f_add - adds the stack's top two element.
+ * @head: the stack's head
+ * @counter: the line number
+ * Return: no return
+*/
+void f_add(stack_t **head, unsigned int counter)
 {
-    stack_t *new_node, *temp;
+	stack_t *h;
+	int len = 0, temp;
 
-    temp = *stack;
-    new_node = malloc(sizeof(stack_t));
-    if (new_node == NULL)
-    {
-        printf("Error\n");
-        exit(0);
-    }
-    if (temp)
-        temp->prev = new_node;
-    new_node->n = n;
-    new_node->next = *stack;
-    new_node->prev = NULL;
-    *stack = new_node;
+	h = *head;
+	while (h)
+	{
+		h = h->next;
+		len++;
+	}
+	if (len < 2)
+	{
+		fprintf(stderr, "L%d: can't add, stack too short\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+	h = *head;
+	temp = h->n + h->next->n;
+	h->next->n = temp;
+	*head = h->next;
+	free(h);
 }
 
-/**
- * perform_addition - Adds the stack's top two elements.
- * @stack: Pointer to the stack's head
- * @line_number: The line number
- * Return: No return value
- */
-void perform_addition(stack_t **stack, unsigned int line_number)
-{
-    stack_t *current;
-    int len = 0, temp;
 
-    current = *stack;
-    while (current)
-    {
-        current = current->next;
-        len++;
-    }
-    if (len < 2)
-    {
-        fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
-        fclose(bus.file);
-        free(bus.content);
-        free_stack(*stack);
-        exit(EXIT_FAILURE);
-    }
-    current = *stack;
-    temp = current->n + current->next->n;
-    current->next->n = temp;
-    *stack = current->next;
-    free(current);
+/**
+ * addnode - add node to the head stack
+ * @head: head of the stack
+ * @n: new_value
+ * Return: no return
+*/
+void addnode(stack_t **head, int n)
+{
+
+	stack_t *new_node, *temp;
+
+	temp = *head;
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
+	{ printf("Error\n");
+		exit(0); }
+	if (temp)
+		temp->prev = new_node;
+	new_node->n = n;
+	new_node->next = *head;
+	new_node->prev = NULL;
+	*head = new_node;
 }
 
-/**
- * perform_multiplication - Multiplies the top two elements of the stack.
- * @stack: Pointer to the stack's head
- * @line_number: The line number
- * Return: No return value
- */
-void perform_multiplication(stack_t **stack, unsigned int line_number)
-{
-    stack_t *current;
-    int len = 0, temp;
 
-    current = *stack;
-    while (current)
-    {
-        current = current->next;
-        len++;
-    }
-    if (len < 2)
-    {
-        fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
-        fclose(bus.file);
-        free(bus.content);
-        free_stack(*stack);
-        exit(EXIT_FAILURE);
-    }
-    current = *stack;
-    temp = current->next->n * current->n;
-    current->next->n = temp;
-    *stack = current->next;
-    free(current);
+/**
+ * f_mul - multiplies the top two elements of the stack.
+ * @head: stack head
+ * @counter: line_number
+ * Return: no return
+*/
+void f_mul(stack_t **head, unsigned int counter)
+{
+	stack_t *h;
+	int len = 0, temp;
+
+	h = *head;
+	while (h)
+	{
+		h = h->next;
+		len++;
+	}
+	if (len < 2)
+	{
+		fprintf(stderr, "L%d: can't mul, stack too short\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+	h = *head;
+	temp = h->next->n * h->n;
+	h->next->n = temp;
+	*head = h->next;
+	free(h);
 }
 
+
 /**
- * perform_modulo - Computes the remainder of the division of the second
+ * f_mod - computes the rest of the division of the second
  * top element of the stack by the top element of the stack
- * @stack: Pointer to the stack's head
- * @line_number: The line number
- * Return: No return value
- */
-void perform_modulo(stack_t **stack, unsigned int line_number)
+ * @head: stack head
+ * @counter: line_number
+ * Return: no return
+*/
+void f_mod(stack_t **head, unsigned int counter)
 {
-    stack_t *current;
-    int len = 0, temp;
+	stack_t *h;
+	int len = 0, temp;
 
-    current = *stack;
-    while (current)
-    {
-        current = current->next;
-        len++;
-    }
-    if (len < 2)
-    {
-        fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
-        fclose(bus.file);
-        free(bus.content);
-        free_stack(*stack);
-        exit(EXIT_FAILURE);
-    }
-    current = *stack;
-    if (current->n == 0)
-    {
-        fprintf(stderr, "L%d: division by zero\n", line_number);
-        fclose(bus.file);
-        free(bus.content);
-        free_stack(*stack);
-        exit(EXIT_FAILURE);
-    }
-    temp = current->next->n % current->n;
-    current->next->n = temp;
-    *stack = current->next;
-    free(current);
+	h = *head;
+	while (h)
+	{
+		h = h->next;
+		len++;
+	}
+	if (len < 2)
+	{
+		fprintf(stderr, "L%d: can't mod, stack too short\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+	h = *head;
+	if (h->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+	temp = h->next->n % h->n;
+	h->next->n = temp;
+	*head = h->next;
+	free(h);
 }
-
