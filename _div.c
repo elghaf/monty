@@ -54,11 +54,11 @@ void divide_top_two_elements(stack_t **stack_head, unsigned int line_number)
 int execute_opcode(char *content, stack_t **stack, unsigned int line_counter, FILE *file)
 {
     instruction_t opcodes[] = {
-        {"push", f_push}, {"pall", f_pall}, {"pint", f_pint},
-        {"pop", f_pop},
+        {"push", push_to_stack}, {"pall", print_stack}, {"pint", f_pint},
+        {"pop", pop_stack},
         {"swap", f_swap},
         {"add", add_elements_to_stack},
-        {"nop", f_nop},
+        {"nop", do_nothing},
         {"sub", f_sub},
         {"div", divide_top_two_elements},
         {"mul", multiply_top_two_elements},

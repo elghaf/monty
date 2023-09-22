@@ -79,7 +79,14 @@ void f_stack(stack_t **head, unsigned int counter);
 void add_node_to_stack(stack_t **stack_head, int new_value);
 void multiply_top_two_elements(stack_t **stack_head, unsigned int line_number);
 void compute_modulo(stack_t **stack_head, unsigned int line_number);
+
+void push_to_stack(stack_t **stack_head, unsigned int line_number);
+int execute_opcode(char *content, stack_t **stack, unsigned int line_counter, FILE *file);
 void divide_top_two_elements(stack_t **stack_head, unsigned int line_number);
+void pop_stack(stack_t **stack_head, unsigned int line_number);
+void do_nothing(stack_t **stack_head, unsigned int line_number);
+void print_stack(stack_t **stack_head, unsigned int line_number);
+void push_to_stack(stack_t **stack_head, unsigned int line_number);
 
 void f_pchar(stack_t **head, unsigned int counter);
 void f_queue(stack_t **head, unsigned int counter);
