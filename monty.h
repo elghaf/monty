@@ -1,13 +1,9 @@
 #ifndef MONTY_H
 #define MONTY_H
-#include <stdio.h>
+#include <stddef.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <fcntl.h>
 #include <string.h>
-#include <ctype.h>
-
+#include <stdio.h>
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -15,7 +11,7 @@
  * @next: points to the next element of the stack (or queue)
  *
  * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO Holberton project
+ * for stack, queues, LIFO, FIFO
  */
 typedef struct stack_s
 {
@@ -24,33 +20,13 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
-
-/**
- * struct bus_s - variables -args, file, line content
- * @arg: value
- * @file: pointer to monty file
- * @content: line content
- * @lifi: flag change stack <-> queue
- * Description: carries values through the program
- */
-typedef struct bus_s
-{
-	char *arg;
-	FILE *file;
-	char *content;
-	int lifi;
-}  bus_t;
-
-extern bus_t bus;
-
-
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
  *
  * Description: opcode and its function
- * for stack, queues, LIFO, FIFO Holberton project
+ * for stack, queues, LIFO, FIFO
  */
 typedef struct instruction_s
 {
@@ -58,36 +34,20 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
-ssize_t getstdin(char **lineptr, int file);
-char  *clean_line(char *content);
-void f_push(stack_t **head, unsigned int number);
-void f_pall(stack_t **head, unsigned int number);
-void f_pint(stack_t **head, unsigned int number);
-int execute(char *content, stack_t **head, unsigned int counter, FILE *file);
-void free_stack(stack_t *head);
-void f_pop(stack_t **head, unsigned int counter);
-void f_swap(stack_t **head, unsigned int counter);
-void add_elements_to_stack(stack_t **stack_head, unsigned int line_number);
-void f_nop(stack_t **head, unsigned int counter);
-void f_sub(stack_t **head, unsigned int counter);
-void f_div(stack_t **head, unsigned int counter);
-void f_pstr(stack_t **head, unsigned int counter);
-void f_rotl(stack_t **head, unsigned int counter);
-void f_rotr(stack_t **head, __attribute__((unused)) unsigned int counter);
-void f_stack(stack_t **head, unsigned int counter);
-void add_node_to_stack(stack_t **stack_head, int new_value);
-void multiply_top_two_elements(stack_t **stack_head, unsigned int line_number);
-void compute_modulo(stack_t **stack_head, unsigned int line_number);
+extern char **opcodes_arr;
+void add_node_beg(stack_t **stack, int n);
+void del_node_beg(stack_t **stack, unsigned int line_num);
+void print_list(stack_t **stack);
+void print_int(stack_t **stack);
+void pint(stack_t **stack, unsigned int line_num);
+void push(stack_t **stack, unsigned int line_num);
+void pall(stack_t **stack, unsigned int line_num);
+void pop(stack_t **stack, unsigned int line_num);
+char **tokenize_line(char *command);
+char *_strdup(char *src);
+void execute(stack_t **stack, char **ops_arr, unsigned int line_num);
+void nop(stack_t **stack, unsigned int line_num);
+void handle_ac(int ac);
+void handle_fd(FILE *fd, char *filename);
+#endif /* MONTY_H */
 
-void push_to_stack(stack_t **stack_head, unsigned int line_number);
-int execute_opcode(char *content, stack_t **stack, unsigned int line_counter, FILE *file);
-void divide_top_two_elements(stack_t **stack_head, unsigned int line_number);
-void pop_stack(stack_t **stack_head, unsigned int line_number);
-void do_nothing(stack_t **stack_head, unsigned int line_number);
-void print_stack(stack_t **stack_head, unsigned int line_number);
-void push_to_stack(stack_t **stack_head, unsigned int line_number);
-
-void f_pchar(stack_t **head, unsigned int counter);
-void f_queue(stack_t **head, unsigned int counter);
-#endif
