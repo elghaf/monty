@@ -1,31 +1,36 @@
 #include "monty.h"
 
 /**
- * _pop - Removes the top element of the stack
- * @head: A pointer to the top of the stack
- * @line_number: The current working line number of the monty bytecode file
- * Return: void
+ * pop_top_element - Removes the top element of the stack.
+ * @stack_head: Pointer to the top of the stack.
+ * @line_number: The current line number of the Monty bytecode file.
+ *
+ * Description:
+ * This function removes the top element of the stack. If the stack is empty,
+ * it prints an error message.
  */
-void _pop(stack_t **head, unsigned int line_number)
+void pop_top_element(stack_t **stack_head, unsigned int line_number)
 {
-	stack_t *tmp = 0;
+	stack_t *tmp;
 
-	if (*head == 0)
+	if (!stack_head || !*stack_head)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		error = 1;
 		return;
 	}
-	if ((*head)->next == 0)
+
+	tmp = *stack_head;
+
+	if (tmp->next)
 	{
-		free(*head);
-		*head = NULL;
+		(tmp->next)->prev = NULL;
+		*stack_head = tmp->next;
 	}
 	else
 	{
-		tmp = *head;
-		((*head)->next)->prev = NULL;
-		(*head) = (*head)->next;
-		free(tmp);
+		*stack_head = NULL;
 	}
+
+	free(tmp);
 }

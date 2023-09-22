@@ -1,13 +1,11 @@
 #ifndef MONTY_H_
 #define MONTY_H_
 
-/* Standard C Library Header Files */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
-/* Global Variable Declaration */
 extern int error;
 
 /**
@@ -16,8 +14,7 @@ extern int error;
  * @prev: points to the previous element of the stack (or queue)
  * @next: points to the next element of the stack (or queue)
  *
- * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO
+ * Description: doubly linked list node structure for stack, queues, LIFO, FIFO
  */
 typedef struct stack_s
 {
@@ -31,8 +28,7 @@ typedef struct stack_s
  * @opcode: the opcode
  * @f: function to handle the opcode
  *
- * Description: opcode and its function
- * for stack, queues, LIFO, FIFO
+ * Description: opcode and its function for stack, queues, LIFO, FIFO
  */
 typedef struct instruction_s
 {
@@ -59,7 +55,7 @@ void _rotr(stack_t **head, unsigned int line_number);
 void stack(stack_t **head, stack_t **new);
 void queue(stack_t **head, stack_t **new);
 
-/* Primary Interpreter Functions*/
+/* Primary Interpreter Functions */
 char *check_push_arg(char *token, unsigned int line_number);
 void line_tok(stack_t **head, FILE *fp, char *line, unsigned int line_number, int *mode);
 void check_token(stack_t **head, FILE *fp, char *line,

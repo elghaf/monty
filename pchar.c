@@ -1,22 +1,26 @@
 #include "monty.h"
 
 /**
- * _pchar - Prints the character at the top of the stack
- * @head: A pointer to the top of the stack
- * @line_number: The current working line number of the Monty bytecodes file
- * Return: void
+ * print_top_char - Prints the character at the top of the stack.
+ * @stack_head: Pointer to the top of the stack.
+ * @line_number: The current line number of the Monty bytecodes file.
+ *
+ * Description:
+ * This function prints the character at the top of the stack if it's a valid
+ * printable ASCII character (from 32 to 126). Otherwise, it prints an error message.
  */
-void _pchar(stack_t **head, unsigned int line_number)
+void print_top_char(stack_t **stack_head, unsigned int line_number)
 {
 	int n;
 
-	if (*head == 0)
+	if (!stack_head || !*stack_head)
 	{
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		error = 1;
 		return;
 	}
-	n = (*head)->n;
+
+	n = (*stack_head)->n;
 
 	if (!(n >= 32 && n <= 126))
 	{
@@ -24,6 +28,7 @@ void _pchar(stack_t **head, unsigned int line_number)
 		error = 1;
 		return;
 	}
+
 	putchar(n);
 	putchar('\n');
 }

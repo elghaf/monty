@@ -1,116 +1,87 @@
 #include "monty.h"
 
 /**
- * _push - Pushes a new node to the linked list
- * @head: The head of the linked list
- * @line_number: The current line number of the Monty bytecode file
- * @arg: The matching argument to push
- * @mode: 0 if stack and 1 if queue
- * Return: void
+ * push_to_stack_or_queue - Pushes a new node to the stack or queue.
+ * @stack_head: Pointer to the top of the stack/queue.
+ * @line_number: The current line number of the Monty bytecode file.
+ * @arg: The argument to push.
+ * @mode: 0 for stack, 1 for queue.
+ *
+ * Description:
+ * This function pushes a new node onto the stack or queue based on the specified mode.
+ * It also checks if the argument is a valid integer and handles memory allocation errors.
  */
-void _push(stack_t **head, unsigned int line_number, char *arg, int *mode)
+void push_to_stack_or_queue(stack_t **stack_head, unsigned int line_number, char *arg, int mode)
 {
 	stack_t *new = NULL;
-	int num = atoi(arg);
+	int num;
 
-	(void)line_number;
+	if (!is_valid_integer(arg, &num, line_number))
+		return;
 
 	free(arg);
 	new = malloc(sizeof(stack_t));
-	if (new == 0)
+
+	if (!new)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		error = 1;
 		return;
 	}
+
 	new->n = num;
-	if (*mode == 0)
-		stack(head, &new);
+
+	if (mode == 0)
+		stack(stack_head, &new);
 	else
-		queue(head, &new);
+		queue(stack_head, &new);
 }
 
 /**
- * check_push_arg - Checks if a push command has an argument in its line
- * @token: Token matching the push line
- * @line_number: The current line number of the Monty bytecode file
- * Return: On SUCCESS, returns (arg) ie a pointer to the matching argument
- *	   On FAILURE returns (NULL)
+ * is_valid_integer - Checks if a string is a valid integer and converts it.
+ * @str: The string to check.
+ * @num: Pointer to store the converted integer.
+ * @line_number: The current line number of the Monty bytecode file.
+ * Return: 1 if the string is not a valid integer, 0 otherwise.
  */
-char *check_push_arg(char *token, unsigned int line_number)
+int is_valid_integer(char *str, int *num, unsigned int line_number)
 {
-	char *token2, *arg;
-	int i, len;
+	int i = 0;
+	int sign = 1;
 
-	(void)token;
+	if (str[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
 
-	token2 = strtok(NULL, " \n");
-
-	while (token2 && token2[0] == ' ')
-		token2 = strtok(NULL, " \n");
-
-	if (!token2)
+	if (str[i] == '\0')
 	{
 		usage_error(line_number);
-		return (NULL);
+		return 1;
 	}
-	len = 0;
-	while (token2[len] && token2[len] != '\n' && token2[len] != ' ')
-		len++;
 
-	arg = malloc(sizeof(char) * (len + 1));
-
-	if (!arg)
+	while (str[i] != '\0')
 	{
-		usage_error(line_number);
-		return (NULL);
+		if (isdigit(str[i]))
+			i++;
+		else
+		{
+			usage_error(line_number);
+			return 1;
+		}
 	}
-	for (i = 0; i < len; i++)
-		arg[i] = token2[i];
-	arg[i] = '\0';
 
-	if (is_number(arg, line_number) == 1)
-		return (NULL);
-	return (arg);
+	*num = atoi(str) * sign;
+	return 0;
 }
 
 /**
- * usage_error - Displays usage error
- * @line_number: The current line number of the Monty bytecode file
+ * usage_error - Displays a usage error message.
+ * @line_number: The current line number of the Monty bytecode file.
  */
 void usage_error(unsigned int line_number)
 {
 	fprintf(stderr, "L%d: usage: push integer\n", line_number);
 	error = 1;
-}
-
-/**
- * is_number - Checks if the pushed argument is a number of not
- * @str: The retrieved token after a found 'push' command
- * @line_number: The current line number of the Monty bytecode file
- * Return: int
- */
-int is_number(char *str, unsigned int line_number)
-{
-	int i = 0;
-
-	if (!(str[i] >= 48 && str[i] <= 57) && str[i] != '-')
-	{
-		usage_error(line_number);
-		return (1);
-	}
-	else
-		i++;
-
-	while (str[i])
-	{
-		if (str[i] >= 48 && str[i] <= 57)
-			i++;
-		else
-		{
-			usage_error(line_number);
-			return (1);
-		}
-	}
-	return (0);
 }

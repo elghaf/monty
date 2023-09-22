@@ -1,22 +1,26 @@
 #include "monty.h"
 
 /**
- * _sub - Substracts the top element of the stack from the second element
- * @head: A pointer to the top of the stack
- * @line_number: The current working line number of the Monty bytecodes file
- * Return: void
+ * subtract_top_elements - Subtracts the top element of the stack from the second element.
+ * @head: A pointer to the top of the stack.
+ * @line_number: The current working line number of the Monty bytecodes file.
+ *
+ * Description:
+ * This function subtracts the top element of the stack from the second element
+ * and stores the result in the new top element of the stack.
  */
-void _sub(stack_t **head, unsigned int line_number)
+void subtract_top_elements(stack_t **head, unsigned int line_number)
 {
-	int sub = 0;
+	int result = 0;
 
-	if (*head == 0 || (*head)->next == 0)
+	if (!head || !*head || !(*head)->next)
 	{
 		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
 		error = 1;
 		return;
 	}
-	sub = (((*head)->next)->n) - ((*head)->n);
+
+	result = ((*head)->next->n) - ((*head)->n);
 	_pop(head, line_number);
-	(*head)->n = sub;
+	(*head)->n = result;
 }

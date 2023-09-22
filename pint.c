@@ -1,18 +1,22 @@
 #include "monty.h"
 
 /**
- * _pint - Prints the value at the top of the stack
- * @head: A pointer to the top of the stack
- * @line_number: The current working line number of the monty bytecodes file
- * Return: void
+ * print_top_value - Prints the value at the top of the stack.
+ * @stack_head: Pointer to the top of the stack.
+ * @line_number: The current line number of the Monty bytecodes file.
+ *
+ * Description:
+ * This function prints the value at the top of the stack if the stack is not empty.
+ * If the stack is empty, it prints an error message.
  */
-void _pint(stack_t **head, unsigned int line_number)
+void print_top_value(stack_t **stack_head, unsigned int line_number)
 {
-	if (head == 0 || *head == 0)
+	if (!stack_head || !*stack_head)
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 		error = 1;
 		return;
 	}
-	printf("%d\n", (*head)->n);
+
+	printf("%d\n", (*stack_head)->n);
 }

@@ -1,33 +1,32 @@
 #include "monty.h"
 
 /**
- * _pstr - Prints the string starting at the top of the stack
- * @head: A pointer to the top of the stack
- * @line_number: The current working line number of the Monty bytecode file
- * Return: void
+ * print_string_from_stack - Prints the string starting at the top of the stack.
+ * @stack_head: Pointer to the top of the stack.
+ * @line_number: The current line number of the Monty bytecode file.
+ *
+ * Description:
+ * This function prints the string starting at the top of the stack, where each
+ * element represents a character in the ASCII range [32, 126]. It stops printing
+ * when it encounters a zero element or a value outside the ASCII range.
  */
-void _pstr(stack_t **head, unsigned int line_number)
+void print_string_from_stack(stack_t **stack_head, unsigned int line_number)
 {
 	int n;
-	stack_t *tmp = *head;
+	stack_t *current = *stack_head;
 
 	(void)line_number;
 
-	if (*head == 0)
+	while (current)
 	{
-		printf("\n");
-		return;
-	}
-	while (tmp)
-	{
-		n = tmp->n;
-		if (n && (n >= 32 && n <= 126))
-			putchar(n);
-		else if (n == 0 || (!(n >= 1 && n <= 127)))
-		{
+		n = current->n;
+
+		if (n == 0 || !(n >= 32 && n <= 126))
 			break;
-		}
-		tmp = tmp->next;
+
+		putchar(n);
+		current = current->next;
 	}
+
 	putchar('\n');
 }

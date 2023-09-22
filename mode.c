@@ -1,52 +1,58 @@
 #include "monty.h"
 
 /**
- * stack - Pushes a new node to the stack
- * @head: Pointer to the top of the stack
- * @new: The new node to push to the stack
- * Return: void
+ * push_to_stack - Pushes a new node onto the stack.
+ * @stack_head: Pointer to the top of the stack.
+ * @new_node: The new node to push onto the stack.
+ *
+ * Description:
+ * This function pushes a new node onto the stack and updates the necessary
+ * pointers to maintain the stack structure.
  */
-void stack(stack_t **head, stack_t **new)
+void push_to_stack(stack_t **stack_head, stack_t **new_node)
 {
-	if (*head == 0)
+	if (!stack_head)
 	{
-		(*new)->prev = NULL;
-		(*new)->next = NULL;
-		*head = (*new);
+		(*new_node)->prev = NULL;
+		(*new_node)->next = NULL;
+		*stack_head = (*new_node);
 	}
 	else
 	{
-		(*head)->prev = *new;
-		(*new)->next = *head;
-		(*new)->prev = NULL;
-		*head = *new;
+		(*stack_head)->prev = *new_node;
+		(*new_node)->next = *stack_head;
+		(*new_node)->prev = NULL;
+		*stack_head = *new_node;
 	}
 }
 
 /**
- * queue - Pushes a new node to the queue
- * @head: The rear of the queue
- * @new: The new node to push to the queue
- * Return: Void
+ * push_to_queue - Pushes a new node onto the queue.
+ * @queue_rear: Pointer to the rear of the queue.
+ * @new_node: The new node to push onto the queue.
+ *
+ * Description:
+ * This function pushes a new node onto the queue and updates the necessary
+ * pointers to maintain the queue structure.
  */
-void queue(stack_t **head, stack_t **new)
+void push_to_queue(stack_t **queue_rear, stack_t **new_node)
 {
 	stack_t *tmp;
 
-	if (*head == 0)
+	if (!queue_rear)
 	{
-		(*new)->prev = NULL;
-		(*new)->next = NULL;
-		*head = (*new);
+		(*new_node)->prev = NULL;
+		(*new_node)->next = NULL;
+		*queue_rear = (*new_node);
 	}
 	else
 	{
-		tmp = *head;
+		tmp = *queue_rear;
 		while (tmp->next)
 			tmp = tmp->next;
 
-		tmp->next = *new;
-		(*new)->next = NULL;
-		(*new)->prev = tmp;
+		tmp->next = *new_node;
+		(*new_node)->next = NULL;
+		(*new_node)->prev = tmp;
 	}
 }

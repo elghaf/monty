@@ -1,38 +1,44 @@
 #include "monty.h"
 
 /**
- * _rotl - Rotates the stack to the top:
- *	   The top element of the stack becomes the last one,
- *	   and the second top element of the stack becomes the first one.
- * @head: A pointer to the top of the stack
- * @line_number: The current working line number of the Monty bytecode file
- * Return: void
+ * rotate_stack_left - Rotates the stack to the left.
+ * The top element of the stack becomes the last one, and the second top element
+ * of the stack becomes the first one.
+ * @stack_head: Pointer to the top of the stack.
+ * @line_number: The current line number of the Monty bytecode file.
+ *
+ * Description:
+ * This function rotates the stack to the left. If there are fewer than two elements
+ * on the stack, it does nothing.
  */
-void _rotl(stack_t **head, unsigned int line_number)
+void rotate_stack_left(stack_t **stack_head, unsigned int line_number)
 {
 	int n;
 	stack_t *tmp, *new;
 
-	if (*head == 0 || (*head)->next == 0)
+	if (!stack_head || !*stack_head || !(*stack_head)->next)
 		return;
-	if (((*head)->next)->next == 0)
+
+	if (!((*stack_head)->next)->next)
 	{
-		_swap(head, line_number);
+		swap_top_two_elements(stack_head, line_number);
 		return;
 	}
-	n = (*head)->n;
-	_pop(head, line_number);
+
+	n = (*stack_head)->n;
+	pop_top_element(stack_head, line_number);
 
 	new = malloc(sizeof(stack_t));
-	if (new == 0)
+	if (!new)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		error = 1;
 		return;
 	}
+
 	new->n = n;
 	new->next = NULL;
-	tmp = *head;
+	tmp = *stack_head;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;

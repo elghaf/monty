@@ -1,10 +1,10 @@
 #include "monty.h"
 
 /**
- * _nop - Does nothing
- * @head: The head of the linked list
- * @line_number: The current working line number of the monty bytecodes file
- * Return: void
+ * _nop - do non
+ * @head: head of link
+ * @line_number: line number
+ * Return: non
  */
 void _nop(stack_t **head, unsigned int line_number)
 {
