@@ -49,7 +49,7 @@ void add_node_to_stack(stack_t **stack_head, int new_value)
     new_node = malloc(sizeof(stack_t));
     if (new_node == NULL)
     {
-        printf("Error\n"); // You can replace this with error handling appropriate for your application.
+        printf("Error\n");
         exit(0);
     }
     if (temp_node)
