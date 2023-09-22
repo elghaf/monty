@@ -1,97 +1,101 @@
 #include "monty.h"
 
 /**
- * f_pop - prints the top
- * @head: stack head
- * @counter: line_number
- * Return: no return
-*/
-void f_pop(stack_t **head, unsigned int counter)
-{
-	stack_t *temp;
-
-	if (*head == NULL)
-	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-	temp = *head;
-	*head = temp->next;
-	free(temp);
-}
-
-
-/**
-  *f_nop- nothing
-  *@head: stack head
-  *@counter: line_number
-  *Return: no return
+ * pop_stack - Removes the top element from the stack.
+ * @stack_head: Pointer to the head of the stack.
+ * @line_number: The line number.
+ * Return: No return value.
  */
-void f_nop(stack_t **head, unsigned int counter)
+void pop_stack(stack_t **stack_head, unsigned int line_number)
 {
-	(void) counter;
-	(void) head;
+    stack_t *temp_node;
+
+    if (*stack_head == NULL)
+    {
+        fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+        fclose(bus.file); // Assuming bus.file is a global variable
+        free(bus.content); // Assuming bus.content is a global variable
+        free_stack(*stack_head); // Assuming free_stack is a function to free the stack
+        exit(EXIT_FAILURE);
+    }
+
+    temp_node = *stack_head;
+    *stack_head = temp_node->next;
+    free(temp_node);
 }
 
-
 /**
- * f_pall - prints the stack
- * @head: stack head
- * @counter: no used
- * Return: no return
-*/
-void f_pall(stack_t **head, unsigned int counter)
+ * do_nothing - Does nothing.
+ * @stack_head: Pointer to the head of the stack.
+ * @line_number: The line number.
+ * Return: No return value.
+ */
+void do_nothing(stack_t **stack_head, unsigned int line_number)
 {
-	stack_t *temp;
-	(void)counter;
-
-	temp = *head;
-	if (temp == NULL)
-		return;
-	while (temp)
-	{
-		printf("%d\n", temp->n);
-		temp = temp->next;
-	}
+    (void)line_number;
+    (void)stack_head;
 }
 
+/**
+ * print_stack - Prints the stack.
+ * @stack_head: Pointer to the head of the stack.
+ * @line_number: The line number (not used).
+ * Return: No return value.
+ */
+void print_stack(stack_t **stack_head, unsigned int line_number)
+{
+    stack_t *temp;
+    (void)line_number;
+
+    temp = *stack_head;
+    if (temp == NULL)
+        return;
+    while (temp)
+    {
+        printf("%d\n", temp->n);
+        temp = temp->next;
+    }
+}
 
 /**
- * f_push - add node to the stack
- * @head: stack head
- * @counter: line_number
- * Return: no return
-*/
-void f_push(stack_t **head, unsigned int counter)
+ * push_to_stack - Adds a new node to the stack.
+ * @stack_head: Pointer to the head of the stack.
+ * @line_number: The line number.
+ * Return: No return value.
+ */
+void push_to_stack(stack_t **stack_head, unsigned int line_number)
 {
-	int n, j = 0, flag = 0;
+    int num, i = 0, flag = 0;
 
-	if (bus.arg)
-	{
-		if (bus.arg[0] == '-')
-			j++;
-		for (; bus.arg[j] != '\0'; j++)
-		{
-			if (bus.arg[j] > 57 || bus.arg[j] < 48)
-				flag = 1; }
-		if (flag == 1)
-		{ fprintf(stderr, "L%d: usage: push integer\n", counter);
-			fclose(bus.file);
-			free(bus.content);
-			free_stack(*head);
-			exit(EXIT_FAILURE); }}
-	else
-	{ fprintf(stderr, "L%d: usage: push integer\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE); }
-	n = atoi(bus.arg);
-	if (bus.lifi == 0)
-		add_node_to_stack(head, n);
-	else
-		addqueue(head, n);
+    if (bus.arg)
+    {
+        if (bus.arg[0] == '-')
+            i++;
+        for (; bus.arg[i] != '\0'; i++)
+        {
+            if (bus.arg[i] > 57 || bus.arg[i] < 48)
+                flag = 1;
+        }
+        if (flag == 1)
+        {
+            fprintf(stderr, "L%d: usage: push integer\n", line_number);
+            fclose(bus.file); 
+            free(bus.content);
+            free_stack(*stack_head);
+            exit(EXIT_FAILURE);
+        }
+    }
+    else
+    {
+        fprintf(stderr, "L%d: usage: push integer\n", line_number);
+        fclose(bus.file); 
+        free(bus.content);
+        free_stack(*stack_head);
+        exit(EXIT_FAILURE);
+    }
+    num = atoi(bus.arg);
+    if (bus.lifi == 0)
+        add_node_to_stack(stack_head, num);
+    else
+        add_to_queue(stack_head, num);
 }
