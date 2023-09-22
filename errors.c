@@ -1,116 +1,82 @@
 #include "monty.h"
 
 /**
- * err - Prints appropiate error messages determined by their error code.
- * @error_code: The error codes are the following:
- * (1) => The user does not give any file or more than one file to the program.
- * (2) => The file provided is not a file that can be opened or read.
- * (3) => The file provided contains an invalid instruction.
- * (4) => When the program is unable to malloc more memory.
- * (5) => When the parameter passed to the instruction "push" is not an int.
- * (6) => When the stack it empty for pint.
- * (7) => When the stack it empty for pop.
- * (8) => When stack is too short for operation.
+ * print_error - Prints error messages based on the error code.
+ * @error_code: The error code that determines the message to be printed.
+ * @line_num: The line number where the error occurred.
+ * @instruction: The instruction associated with the error (if applicable).
  */
-void err(int error_code, ...)
-{
-	va_list ag;
-	char *op;
-	int l_num;
-
-	va_start(ag, error_code);
-	switch (error_code)
-	{
-		case 1:
-			fprintf(stderr, "USAGE: monty file\n");
-			break;
-		case 2:
-			fprintf(stderr, "Error: Can't open file %s\n",
-				va_arg(ag, char *));
-			break;
-		case 3:
-			l_num = va_arg(ag, int);
-			op = va_arg(ag, char *);
-			fprintf(stderr, "L%d: unknown instruction %s\n", l_num, op);
-			break;
-		case 4:
-			fprintf(stderr, "Error: malloc failed\n");
-			break;
-		case 5:
-			fprintf(stderr, "L%d: usage: push integer\n", va_arg(ag, int));
-			break;
-		default:
-			break;
-	}
-	free_nodes();
-	exit(EXIT_FAILURE);
+static void print_error(int error_code, int line_num, const char *instruction) {
+    switch (error_code) {
+        case 1:
+            fprintf(stderr, "ERROR: Usage: monty file\n");
+            break;
+        case 2:
+            fprintf(stderr, "ERROR: Couldn't open file: %s\n", instruction);
+            break;
+        case 3:
+            fprintf(stderr, "ERROR: L%d: Unknown instruction: %s\n", line_num, instruction);
+            break;
+        case 4:
+            fprintf(stderr, "ERROR: Memory allocation failed\n");
+            break;
+        case 5:
+            fprintf(stderr, "ERROR: L%d: Usage: push integer\n", line_num);
+            break;
+        case 6:
+            fprintf(stderr, "ERROR: L%d: Can't pint, stack is empty\n", line_num);
+            break;
+        case 7:
+            fprintf(stderr, "ERROR: L%d: Can't pop, stack is empty\n", line_num);
+            break;
+        case 8:
+            fprintf(stderr, "ERROR: L%d: Can't perform %s, stack is too short\n", line_num, instruction);
+            break;
+        case 9:
+            fprintf(stderr, "ERROR: L%d: Division by zero\n", line_num);
+            break;
+        case 10:
+            fprintf(stderr, "ERROR: L%d: Can't pchar, value is out of range\n", line_num);
+            break;
+        case 11:
+            fprintf(stderr, "ERROR: L%d: Can't pchar, stack is empty\n", line_num);
+            break;
+        default:
+            break;
+    }
 }
 
 /**
- * more_err - handles errors.
- * @error_code: The error codes are the following:
- * (6) => When the stack it empty for pint.
- * (7) => When the stack it empty for pop.
- * (8) => When stack is too short for operation.
- * (9) => Division by zero.
+ * err - Handles general errors and exits the program.
+ * @error_code: The error code that determines the message to be printed.
+ * @line_num: The line number where the error occurred.
+ * @instruction: The instruction associated with the error (if applicable).
  */
-void more_err(int error_code, ...)
-{
-	va_list ag;
-	char *op;
-	int l_num;
-
-	va_start(ag, error_code);
-	switch (error_code)
-	{
-		case 6:
-			fprintf(stderr, "L%d: can't pint, stack empty\n",
-				va_arg(ag, int));
-			break;
-		case 7:
-			fprintf(stderr, "L%d: can't pop an empty stack\n",
-				va_arg(ag, int));
-			break;
-		case 8:
-			l_num = va_arg(ag, unsigned int);
-			op = va_arg(ag, char *);
-			fprintf(stderr, "L%d: can't %s, stack too short\n", l_num, op);
-			break;
-		case 9:
-			fprintf(stderr, "L%d: division by zero\n",
-				va_arg(ag, unsigned int));
-			break;
-		default:
-			break;
-	}
-	free_nodes();
-	exit(EXIT_FAILURE);
+void err(int error_code, int line_num, const char *instruction) {
+    print_error(error_code, line_num, instruction);
+    free_nodes();
+    exit(EXIT_FAILURE);
 }
 
 /**
- * string_err - handles errors.
- * @error_code: The error codes are the following:
- * (10) ~> The number inside a node is outside ASCII bounds.
- * (11) ~> The stack is empty.
+ * more_err - Handles errors related to stack operations and exits the program.
+ * @error_code: The error code that determines the message to be printed.
+ * @line_num: The line number where the error occurred.
+ * @instruction: The instruction associated with the error (if applicable).
  */
-void string_err(int error_code, ...)
-{
-	va_list ag;
-	int l_num;
+void more_err(int error_code, int line_num, const char *instruction) {
+    print_error(error_code, line_num, instruction);
+    free_nodes();
+    exit(EXIT_FAILURE);
+}
 
-	va_start(ag, error_code);
-	l_num = va_arg(ag, int);
-	switch (error_code)
-	{
-		case 10:
-			fprintf(stderr, "L%d: can't pchar, value out of range\n", l_num);
-			break;
-		case 11:
-			fprintf(stderr, "L%d: can't pchar, stack empty\n", l_num);
-			break;
-		default:
-			break;
-	}
-	free_nodes();
-	exit(EXIT_FAILURE);
+/**
+ * string_err - Handles errors related to string operations and exits the program.
+ * @error_code: The error code that determines the message to be printed.
+ * @line_num: The line number where the error occurred.
+ */
+void string_err(int error_code, int line_num) {
+    print_error(error_code, line_num, NULL);
+    free_nodes();
+    exit(EXIT_FAILURE);
 }
