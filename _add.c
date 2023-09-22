@@ -1,35 +1,37 @@
 #include "monty.h"
 
 /**
- * f_add - adds the stack's top two element.
- * @head: the stack's head
- * @counter: the line number
- * Return: no return
-*/
-void f_add(stack_t **head, unsigned int counter)
+ * add_elements_to_stack - Adds two elements from the stack.
+ * @stack_head: Pointer to the head of our stack.
+ * @line_number: The line number.
+ * Return: No return value.
+ */
+void add_elements_to_stack(stack_t **stack_head, unsigned int line_number)
 {
-	stack_t *h;
-	int len = 0, temp;
+    stack_t *current_node;
+    int stack_length = 0, sum;
 
-	h = *head;
-	while (h)
-	{
-		h = h->next;
-		len++;
-	}
-	if (len < 2)
-	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-	h = *head;
-	temp = h->n + h->next->n;
-	h->next->n = temp;
-	*head = h->next;
-	free(h);
+    current_node = *stack_head;
+    while (current_node)
+    {
+        current_node = current_node->next;
+        stack_length++;
+    }
+    
+    if (stack_length < 2)
+    {
+        fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+        fclose(bus.file); // Assuming bus.file is a global variable
+        free(bus.content); // Assuming bus.content is a global variable
+        free_stack(*stack_head); // Assuming free_stack is a function to free the stack
+        exit(EXIT_FAILURE);
+    }
+
+    current_node = *stack_head;
+    sum = current_node->n + current_node->next->n;
+    current_node->next->n = sum;
+    *stack_head = current_node->next;
+    free(current_node);
 }
 
 
