@@ -104,7 +104,7 @@ void multiply_top_two_elements(stack_t **stack_head, unsigned int line_number)
  * Return: No return value.
  */
 void compute_modulo(stack_t **stack_head, unsigned int line_number)
-{
+
     stack_t *current_node;
     int stack_length = 0, remainder;
 
@@ -116,21 +116,21 @@ void compute_modulo(stack_t **stack_head, unsigned int line_number)
     }
     
     if (stack_length < 2)
-    {
+    
         fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
-        fclose(bus.file); // Assuming bus.file is a global variable
-        free(bus.content); // Assuming bus.content is a global variable
-        free_stack(*stack_head); // Assuming free_stack is a function to free the stack
+        fclose(bus.file);
+        free(bus.content); 
+        free_stack(*stack_head); 
         exit(EXIT_FAILURE);
-    }
+    
 
     current_node = *stack_head;
     if (current_node->n == 0)
     {
         fprintf(stderr, "L%d: division by zero\n", line_number);
-        fclose(bus.file); // Assuming bus.file is a global variable
-        free(bus.content); // Assuming bus.content is a global variable
-        free_stack(*stack_head); // Assuming free_stack is a function to free the stack
+        fclose(bus.file); 
+        free(bus.content);
+        free_stack(*stack_head);
         exit(EXIT_FAILURE);
     }
 
@@ -138,4 +138,4 @@ void compute_modulo(stack_t **stack_head, unsigned int line_number)
     current_node->next->n = remainder;
     *stack_head = current_node->next;
     free(current_node);
-}
+
