@@ -9,6 +9,7 @@
  * This function subtracts the top element of the stack from the second element
  * and stores the result in the new top element of the stack.
  */
+
 void subtract_top_elements(stack_t **head, unsigned int line_number)
 {
 	int result = 0;

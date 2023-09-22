@@ -8,6 +8,7 @@
  * Description:
  * This function swaps the values of the top two elements of the stack.
  */
+
 void swap_top_two_elements(stack_t **head, unsigned int line_number)
 {
 	int temp;

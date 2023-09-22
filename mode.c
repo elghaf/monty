@@ -35,6 +35,7 @@ void push_to_stack(stack_t **stack_head, stack_t **new_node)
  * This function pushes a new node onto the queue and updates the necessary
  * pointers to maintain the queue structure.
  */
+
 void push_to_queue(stack_t **queue_rear, stack_t **new_node)
 {
 	stack_t *tmp;

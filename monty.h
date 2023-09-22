@@ -37,36 +37,28 @@ typedef struct instruction_s
 } instruction_t;
 
 /* Opcode Functions */
-void _push(stack_t **stack, unsigned int line_number, char *str, int *mode);
-void _pall(stack_t **head, unsigned int line_number);
-void _pint(stack_t **head, unsigned int line_number);
-void _pop(stack_t **head, unsigned int line_number);
-void _swap(stack_t **head, unsigned int line_number);
-void _add(stack_t **head, unsigned int line_number);
+void add_top_two_elements(stack_t **stack_head, unsigned int line_number);
+void divide_top_two_elements(stack_t **stack_head, unsigned int line_number);
+void free_stack(stack_t **stack_head, FILE *file_ptr, char *line_buffer);
+void tokenize_and_process_line(stack_t **stack_head, FILE *file_ptr, char *line_buffer,
+                               unsigned int line_number, int *execution_mode);
+int check_mode(char *token, int *execution_mode);
+void compute_modulus(stack_t **stack_head, unsigned int line_number);
+void push_to_stack(stack_t **stack_head, stack_t **new_node);
+void push_to_queue(stack_t **queue_rear, stack_t **new_node);
+void multiply_top_two_elements(stack_t **stack_head, unsigned int line_number);
 void _nop(stack_t **head, unsigned int line_number);
-void _sub(stack_t **head, unsigned int line_number);
-void _div(stack_t **head, unsigned int line_number);
-void _mul(stack_t **head, unsigned int line_number);
-void _mod(stack_t **head, unsigned int line_number);
-void _pchar(stack_t **head, unsigned int line_number);
-void _pstr(stack_t **head, unsigned int line_number);
-void _rotl(stack_t **head, unsigned int line_number);
-void _rotr(stack_t **head, unsigned int line_number);
-void stack(stack_t **head, stack_t **new);
-void queue(stack_t **head, stack_t **new);
-
-/* Primary Interpreter Functions */
-char *check_push_arg(char *token, unsigned int line_number);
-void line_tok(stack_t **head, FILE *fp, char *line, unsigned int line_number, int *mode);
-void check_token(stack_t **head, FILE *fp, char *line,
-char *token, unsigned int line_number, int *mode);
-void (*get_function(char *token))(stack_t **, unsigned int);
-int is_number(char *str, unsigned int line_number);
-void free_list(stack_t **head, FILE *fp, char *line);
-int check_mode(char *token, int *mode);
-
-/* Error Message Functions */
-void opcode_fail(char *token, unsigned int line_number);
+void print_stack(stack_t **stack_head, unsigned int line_number);
+void print_top_char(stack_t **stack_head, unsigned int line_number);
+void print_top_value(stack_t **stack_head, unsigned int line_number);
+void pop_top_element(stack_t **stack_head, unsigned int line_number);
+void print_string_from_stack(stack_t **stack_head, unsigned int line_number);
+void push_to_stack_or_queue(stack_t **stack_head, unsigned int line_number, char *arg, int mode);
+int is_valid_integer(char *str, int *num, unsigned int line_number);
 void usage_error(unsigned int line_number);
-
+void rotate_stack_left(stack_t **stack_head, unsigned int line_number);
+void rotate_stack_right(stack_t **stack_head, unsigned int line_number);
+void opcode_fail(char *token, unsigned int line_number);
+void subtract_top_elements(stack_t **head, unsigned int line_number);
+void swap_top_two_elements(stack_t **head, unsigned int line_number);
 #endif /* MONTY_H_ */

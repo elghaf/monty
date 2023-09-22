@@ -203,6 +203,7 @@ void (*get_function(char *token))(stack_t **, unsigned int)
  * @token: The invalid command to display.
  * @line_number: Line number in Monty bytecode file where error occurred.
  */
+
 void opcode_fail(char *token, unsigned int line_number)
 {
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, token);

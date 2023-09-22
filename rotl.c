@@ -11,6 +11,7 @@
  * This function rotates the stack to the left. If there are fewer than two elements
  * on the stack, it does nothing.
  */
+
 void rotate_stack_left(stack_t **stack_head, unsigned int line_number)
 {
 	int n;

@@ -9,6 +9,7 @@
  * This function removes the top element of the stack. If the stack is empty,
  * it prints an error message.
  */
+
 void pop_top_element(stack_t **stack_head, unsigned int line_number)
 {
 	stack_t *tmp;

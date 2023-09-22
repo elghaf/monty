@@ -12,6 +12,7 @@
  * If the stack is too short or if division by zero is attempted, it prints
  * corresponding error messages.
  */
+
 void compute_modulus(stack_t **stack_head, unsigned int line_number)
 {
 	int modulus = 0;

@@ -10,6 +10,7 @@
  * and replaces the second top element with the result. If the stack is too short
  * or if division by zero is attempted, it prints corresponding error messages.
  */
+
 void divide_top_two_elements(stack_t **stack_head, unsigned int line_number)
 {
 	int quotient = 0;

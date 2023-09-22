@@ -8,6 +8,7 @@
  * Description:
  * This function prints all elements of the stack in order from top to bottom.
  */
+
 void print_stack(stack_t **stack_head, unsigned int line_number)
 {
 	stack_t *current = *stack_head;

@@ -11,6 +11,7 @@
  * This function pushes a new node onto the stack or queue based on the specified mode.
  * It also checks if the argument is a valid integer and handles memory allocation errors.
  */
+
 void push_to_stack_or_queue(stack_t **stack_head, unsigned int line_number, char *arg, int mode)
 {
 	stack_t *new = NULL;
@@ -44,6 +45,7 @@ void push_to_stack_or_queue(stack_t **stack_head, unsigned int line_number, char
  * @line_number: The current line number of the Monty bytecode file.
  * Return: 1 if the string is not a valid integer, 0 otherwise.
  */
+
 int is_valid_integer(char *str, int *num, unsigned int line_number)
 {
 	int i = 0;
@@ -80,6 +82,7 @@ int is_valid_integer(char *str, int *num, unsigned int line_number)
  * usage_error - Displays a usage error message.
  * @line_number: The current line number of the Monty bytecode file.
  */
+
 void usage_error(unsigned int line_number)
 {
 	fprintf(stderr, "L%d: usage: push integer\n", line_number);

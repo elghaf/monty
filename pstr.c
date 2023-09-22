@@ -10,6 +10,7 @@
  * element represents a character in the ASCII range [32, 126]. It stops printing
  * when it encounters a zero element or a value outside the ASCII range.
  */
+
 void print_string_from_stack(stack_t **stack_head, unsigned int line_number)
 {
 	int n;
