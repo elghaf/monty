@@ -83,4 +83,6 @@ void addqueue(stack_t **head, int n);
 void f_queue(stack_t **head, unsigned int counter);
 void f_stack(stack_t **head, unsigned int counter);
 void add_node_to_stack(stack_t **stack_head, int new_value);
+void multiply_top_two_elements(stack_t **stack_head, unsigned int line_number);
+
 #endif

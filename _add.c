@@ -62,37 +62,38 @@ void add_node_to_stack(stack_t **stack_head, int new_value)
 }
 
 
-
 /**
- * f_mul - multiplies the top two elements of the stack.
- * @head: stack head
- * @counter: line_number
- * Return: no return
-*/
-void f_mul(stack_t **head, unsigned int counter)
+ * multiply_top_two_elements - Multiplies the top two elements of the stack.
+ * @stack_head: Pointer to the head of the stack.
+ * @line_number: The line number.
+ * Return: No return value.
+ */
+void multiply_top_two_elements(stack_t **stack_head, unsigned int line_number)
 {
-	stack_t *h;
-	int len = 0, temp;
+    stack_t *current_node;
+    int stack_length = 0, product;
 
-	h = *head;
-	while (h)
-	{
-		h = h->next;
-		len++;
-	}
-	if (len < 2)
-	{
-		fprintf(stderr, "L%d: can't mul, stack too short\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-	h = *head;
-	temp = h->next->n * h->n;
-	h->next->n = temp;
-	*head = h->next;
-	free(h);
+    current_node = *stack_head;
+    while (current_node)
+    {
+        current_node = current_node->next;
+        stack_length++;
+    }
+    
+    if (stack_length < 2)
+    {
+        fprintf(stderr, "L%d: can't multiply, stack too short\n", line_number);
+        fclose(bus.file); 
+        free(bus.content);
+        free_stack(*stack_head);
+        exit(EXIT_FAILURE);
+    }
+
+    current_node = *stack_head;
+    product = current_node->next->n * current_node->n;
+    current_node->next->n = product;
+    *stack_head = current_node->next;
+    free(current_node);
 }
 
 
