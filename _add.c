@@ -21,9 +21,9 @@ void add_elements_to_stack(stack_t **stack_head, unsigned int line_number)
     if (stack_length < 2)
     {
         fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
-        fclose(bus.file); // Assuming bus.file is a global variable
-        free(bus.content); // Assuming bus.content is a global variable
-        free_stack(*stack_head); // Assuming free_stack is a function to free the stack
+        fclose(bus.file);
+        free(bus.content);
+        free_stack(*stack_head);
         exit(EXIT_FAILURE);
     }
 
