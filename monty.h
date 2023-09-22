@@ -82,4 +82,5 @@ void addnode(stack_t **head, int n);
 void addqueue(stack_t **head, int n);
 void f_queue(stack_t **head, unsigned int counter);
 void f_stack(stack_t **head, unsigned int counter);
+void add_node_to_stack(stack_t **stack_head, int new_value);
 #endif
