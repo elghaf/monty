@@ -1,12 +1,14 @@
-#ifndef MONTY_H_
-#define MONTY_H_
+#ifndef __MONTYC__
+#define __MONTYC__
 
-#include <stdio.h>
+#define _GNU_SOURCE
 #include <stdlib.h>
-#include <unistd.h>
+#include <stdio.h>
 #include <string.h>
 
-extern int error;
+#define DELIM " \n\t\a\b"
+
+extern char **tok;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -14,7 +16,6 @@ extern int error;
  * @prev: points to the previous element of the stack (or queue)
  * @next: points to the next element of the stack (or queue)
  *
- * Description: doubly linked list node structure for stack, queues, LIFO, FIFO
  */
 typedef struct stack_s
 {
@@ -28,7 +29,6 @@ typedef struct stack_s
  * @opcode: the opcode
  * @f: function to handle the opcode
  *
- * Description: opcode and its function for stack, queues, LIFO, FIFO
  */
 typedef struct instruction_s
 {
@@ -36,29 +36,36 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/* Opcode Functions */
-void add_top_two_elements(stack_t **stack_head, unsigned int line_number);
-void divide_top_two_elements(stack_t **stack_head, unsigned int line_number);
-void free_stack(stack_t **stack_head, FILE *file_ptr, char *line_buffer);
-void tokenize_and_process_line(stack_t **stack_head, FILE *file_ptr, char *line_buffer,
-                               unsigned int line_number, int *execution_mode);
-int check_mode(char *token, int *execution_mode);
-void compute_modulus(stack_t **stack_head, unsigned int line_number);
-void push_to_stack(stack_t **stack_head, stack_t **new_node);
-void push_to_queue(stack_t **queue_rear, stack_t **new_node);
-void multiply_top_two_elements(stack_t **stack_head, unsigned int line_number);
-void _nop(stack_t **head, unsigned int line_number);
-void print_stack(stack_t **stack_head, unsigned int line_number);
-void print_top_char(stack_t **stack_head, unsigned int line_number);
-void print_top_value(stack_t **stack_head, unsigned int line_number);
-void pop_top_element(stack_t **stack_head, unsigned int line_number);
-void print_string_from_stack(stack_t **stack_head, unsigned int line_number);
-void push_to_stack_or_queue(stack_t **stack_head, unsigned int line_number, char *arg, int mode);
-int is_valid_integer(char *str, int *num, unsigned int line_number);
-void usage_error(unsigned int line_number);
-void rotate_stack_left(stack_t **stack_head, unsigned int line_number);
-void rotate_stack_right(stack_t **stack_head, unsigned int line_number);
-void opcode_fail(char *token, unsigned int line_number);
-void subtract_top_elements(stack_t **head, unsigned int line_number);
-void swap_top_two_elements(stack_t **head, unsigned int line_number);
-#endif /* MONTY_H_ */
+/*1_montyfunc.c*/
+size_t interpreter(FILE *monty_file);
+int stack_maker(stack_t **stack);
+size_t line_parser(FILE *monty_file, stack_t **stack);
+short int empty_line_checker(char *lineptr, char *delim);
+void free_plates(stack_t **plates);
+
+/*2_montyfunc.c*/
+void tok_free(void);
+void (*find_opcodeFX(char *opcode))(stack_t**, unsigned int);
+unsigned int tok_len(void);
+size_t liner(char **lineptr);
+char **_strtok(char *str, char *delims);
+
+/*op1codes.c*/
+void _push(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
+void _pint(stack_t **stack, unsigned int line_number);
+void _pop(stack_t **stack, unsigned int line_number);
+void _swap(stack_t **stack, unsigned int line_number);
+
+/*op1codes.c*/
+void _add(stack_t **stack, unsigned int line_number);
+void _nop(stack_t **stack, unsigned int line_number);
+void _sub(stack_t **stack, unsigned int line_number);
+
+/*3_montyfunc.c*/
+int _isDelim(char ch, char *delims);
+int get_wl(char *str, char *delims);
+int get_wc(char *str, char *delims);
+char *get_nw(char *str, char *delims);
+
+#endif /*__MONTYC__*/
