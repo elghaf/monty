@@ -1,80 +1,77 @@
 #include "monty.h"
 
 /**
- * pint - Prints the value at the top of the stack, followed by a newline.
- * @stack: Double pointer to the beginning of the stack.
- * @line_number: The line number in the Monty bytecode file.
+ * print_top - Prints the value at the top of the stack, followed by a newline.
+ * @stk: Double pointer to the beginning of the stack.
+ * @line_num: The line number in the Monty bytecode file.
  */
-void pint(stack_t **stack, unsigned int line_number)
+void print_top(stack_t **stk, unsigned int line_num)
 {
-	if (stack == NULL || *stack == NULL)
-	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
-		free(tokens);
-		free_dlistint(*stack);
-		exit(EXIT_FAILURE);
-	}
-	printf("%d\n", (*stack)->n);
+    if (stk == NULL || *stk == NULL)
+    {
+        fprintf(stderr, "L%d: can't print, stack empty\n", line_num);
+        free(tokens);
+        free_dlistint(*stk);
+        exit(EXIT_FAILURE);
+    }
+    printf("%d\n", (*stk)->n);
 }
 
 /**
- * pop - Removes the top element of the stack.
- * @stack: Double pointer to the beginning of the stack.
- * @line_number: The line number in the Monty bytecode file.
+ * remove_top - Removes the top element of the stack.
+ * @stk: Double pointer to the beginning of the stack.
+ * @line_num: The line number in the Monty bytecode file.
  */
-
-void pop(stack_t **stack, unsigned int line_number)
+void remove_top(stack_t **stk, unsigned int line_num)
 {
-	stack_t *curr;
+    stack_t *curr;
 
-	if (!*stack)
-	{
-		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	curr = *stack;
-	if (curr->next == NULL)
-	{
-		*stack = NULL;
-		free(curr);
-	}
-	else
-	{
-		*stack = curr->next;
-		curr->next->prev = NULL;
-		free(curr);
-	}
+    if (!*stk)
+    {
+        fprintf(stderr, "L%u: can't remove an empty stack\n", line_num);
+        exit(EXIT_FAILURE);
+    }
+    curr = *stk;
+    if (curr->next == NULL)
+    {
+        *stk = NULL;
+        free(curr);
+    }
+    else
+    {
+        *stk = curr->next;
+        curr->next->prev = NULL;
+        free(curr);
+    }
 }
 
 /**
- * swap - Swaps the top two elements of the stack.
- * @stack: Double pointer to the beginning of the stack.
- * @line_number: The line number in the Monty bytecode file.
+ * swap_top - Swaps the top two elements of the stack.
+ * @stk: Double pointer to the beginning of the stack.
+ * @line_num: The line number in the Monty bytecode file.
  */
-
-void swap(stack_t **stack, unsigned int line_number)
+void swap_top(stack_t **stk, unsigned int line_num)
 {
-	int num;
+    int num;
 
-	if (*stack == NULL || (*stack)->next == NULL)
-	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+    if (*stk == NULL || (*stk)->next == NULL)
+    {
+        fprintf(stderr, "L%d: can't swap, stack too short\n", line_num);
+        exit(EXIT_FAILURE);
+    }
 
-	num = (*stack)->n;
-	(*stack)->n = (*stack)->next->n;
-	(*stack)->next->n = num;
+    num = (*stk)->n;
+    (*stk)->n = (*stk)->next->n;
+    (*stk)->next->n = num;
 }
 
 /**
- * nop - Does nothing.
- * @stack: Double pointer to the beginning of the stack.
- * @line_number: The line number in the Monty bytecode file.
+ * do_nothing - Does nothing.
+ * @stk: Double pointer to the beginning of the stack.
+ * @line_num: The line number in the Monty bytecode file.
  */
-
-void nop(stack_t **stack, unsigned int line_number)
+void do_nothing(stack_t **stk, unsigned int line_num)
 {
-	(void)stack;
-	(void)line_number;
+    (void)stk;
+    (void)line_num;
 }
