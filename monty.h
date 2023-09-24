@@ -72,7 +72,7 @@ void free_distant(stack_t *head);
 void mod(stack_t **stack, unsigned int lines);
 void push(stack_t **stacks, unsigned int numbers);
 void pall(stack_t **stacks, unsigned int numbers);
-
+void mul(stack_t **stacks, unsigned int numbers);
 void nop(stack_t **stacks, unsigned int numbers);
 void pop(stack_t **stacks, unsigned int numbers);
 
