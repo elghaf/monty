@@ -1,126 +1,110 @@
 #include "monty.h"
 
 /**
- * add_stack - Adds the top two elements of the stack.
- * @stk: Double pointer to the beginning of the stack.
- * @line_num: The line number in the Monty bytecode file.
- *
- * Description: This function adds the top two elements of the stack and
- * replaces the second top element with the result.
+ * add - Adds the top two elements of the stack.
+ * @stack: Double pointer to the beginning of the stack.
+ * @line_number: The line number in the Monty bytecode file.
  */
-void add_stack(stack_t **stk, unsigned int line_num)
+void add(stack_t **stack, unsigned int line_number)
 {
-    stack_t *temp;
+	stack_t *temp;
 
-    if (!*stk || !(*stk)->next)
-    {
-        fprintf(stderr, "L%d: can't add, stack too short\n", line_num);
-        exit(EXIT_FAILURE);
-    }
-    temp = *stk;
+	if (!*stack || !(*stack)->next)
+	{
+		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp = *stack;
 
-    temp->next->n = temp->next->n + temp->n;
-    pop_stack(stk, line_num);
+	temp->next->n = temp->next->n + temp->n;
+	pop(stack, line_number);
 }
 
 /**
- * sub_stack - Subtracts the top element of the stack from the second top element.
- * @stk: Double pointer to the beginning of the stack.
- * @line_num: The line number in the Monty bytecode file.
- *
- * Description: This function subtracts the top element of the stack from
- * the second top element and replaces the second top element with the result.
+ * sub - Subtracts the top element of the stack from the second top element.
+ * @stack: Double pointer to the beginning of the stack.
+ * @line_number: The line number in the Monty bytecode file.
  */
-void sub_stack(stack_t **stk, unsigned int line_num)
+void sub(stack_t **stack, unsigned int line_number)
 {
-    stack_t *temp;
+	stack_t *temp;
 
-    if (!*stk || !(*stk)->next)
-    {
-        fprintf(stderr, "L%d: can't sub, stack too short\n", line_num);
-        exit(EXIT_FAILURE);
-    }
-    temp = *stk;
+	if (!*stack || !(*stack)->next)
+	{
+		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp = *stack;
 
-    temp->next->n = temp->next->n - temp->n;
-    pop_stack(stk, line_num);
+	temp->next->n = temp->next->n - temp->n;
+	pop(stack, line_number);
 }
 
 /**
- * divide_stack - Divides the second top element of the stack by the top element.
- * @stk: Double pointer to the beginning of the stack.
- * @line_num: The line number in the Monty bytecode file.
- *
- * Description: This function divides the second top element of the stack by
- * the top element and replaces the second top element with the result.
+ * divide - Divides the second top element of the stack by the top element.
+ * @stack: Double pointer to the beginning of the stack.
+ * @line_number: The line number in the Monty bytecode file.
  */
-void divide_stack(stack_t **stk, unsigned int line_num)
+void divide(stack_t **stack, unsigned int line_number)
 {
-    stack_t *temp;
+	stack_t *temp;
 
-    if (!*stk || !(*stk)->next)
-    {
-        fprintf(stderr, "L%d: can't div, stack too short\n", line_num);
-        exit(EXIT_FAILURE);
-    }
-    temp = *stk;
-    if (temp->n == 0)
-    {
-        fprintf(stderr, "L%d: division by zero\n", line_num);
-        exit(EXIT_FAILURE);
-    }
-    temp->next->n = temp->next->n / temp->n;
-    pop_stack(stk, line_num);
+	if (!*stack || !(*stack)->next)
+	{
+		fprintf(stderr, "L%d: can't div, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp = *stack;
+	if (temp->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp->next->n = temp->next->n / temp->n;
+	pop(stack, line_number);
 }
 
 /**
- * mul_stack - Multiplies the second top element of the stack by the top element.
- * @stk: Double pointer to the beginning of the stack.
- * @line_num: The line number in the Monty bytecode file.
- *
- * Description: This function multiplies the second top element of the stack by
- * the top element and replaces the second top element with the result.
+ * mul - Multiplies the second top element of the stack by the top element.
+ * @stack: Double pointer to the beginning of the stack.
+ * @line_number: The line number in the Monty bytecode file.
  */
-void mul_stack(stack_t **stk, unsigned int line_num)
+void mul(stack_t **stack, unsigned int line_number)
 {
-    stack_t *temp;
+	stack_t *temp;
 
-    if (!*stk || !(*stk)->next)
-    {
-        fprintf(stderr, "L%d: can't mul, stack too short\n", line_num);
-        exit(EXIT_FAILURE);
-    }
-    temp = *stk;
+	if (!*stack || !(*stack)->next)
+	{
+		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp = *stack;
 
-    temp->next->n = temp->next->n * temp->n;
-    pop_stack(stk, line_num);
+	temp->next->n = temp->next->n * temp->n;
+	pop(stack, line_number);
 }
 
 /**
- * mod_stack - Computes the remainder of the division of the second top element
+ * mod - Computes the remainder of the division of the second top element
  *       of the stack by the top element.
- * @stk: Double pointer to the beginning of the stack.
- * @line_num: The line number in the Monty bytecode file.
- *
- * Description: This function computes the remainder of the division of the
- * second top element of the stack by the top element and replaces the second
- * top element with the result.
+ * @stack: Double pointer to the beginning of the stack.
+ * @line_number: The line number in the Monty bytecode file.
  */
-void mod_stack(stack_t **stk, unsigned int line_num)
+void mod(stack_t **stack, unsigned int line_number)
 {
-    stack_t *temp;
+	stack_t *temp;
 
-    if (!*stk || !(*stk)->next)
-    {
-        fprintf(stderr, "L%d: can't mod, stack too short\n", line_num);
-        exit(EXIT_FAILURE);
-    }
-    temp = *stk;
-    if (temp->n == 0)
-    {
-        fprintf(stderr, "L%d: division by zero\n", line_num);
-        exit(EXIT_FAILURE);
-    }
-    temp->next->n = temp->next->n % temp->n;
-    pop_stack(stk, line_num);
+	if (!*stack || !(*stack)->next)
+	{
+		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp = *stack;
+	if (temp->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp->next->n = temp->next->n % temp->n;
+	pop(stack, line_number);
 }
