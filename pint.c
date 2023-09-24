@@ -14,7 +14,7 @@ void pint(stack_t **stack_beg, unsigned int l_num)
 	}
 	else
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", l_num);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", l_num);
 		exit(EXIT_FAILURE);
 	}
 }
