@@ -10,15 +10,15 @@ char **data = NULL;
  * Description: This function frees the memory allocated for a doubly linked
  * list of integers and sets the head pointer to NULL.
  */
-void free_dlistint(stack_t *head)
+void free_dlistint(stack_t *stack_head)
 {
-    stack_t *temp;
+    stack_t *free_l;
 
-    while (head)
+    while (stack_head)
     {
-        temp = head->next;
-        free(head);
-        head = temp;
+        free_l = stack_head->next;
+        free(stack_head);
+        free_l = free_l;
     }
 }
 
