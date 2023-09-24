@@ -64,6 +64,7 @@ int main(int ac, char **av)
 		{"pop",pop},
 		{"swap",swap},
 		{"nop", nop},
+		{"mod",mod},
         {NULL, NULL}
     };
     char *line = NULL;
