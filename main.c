@@ -1,20 +1,19 @@
 #include "monty.h"
-bus_t bosnia = {NULL, NULL, NULL, 0};
+bus_t bus = {NULL, NULL, NULL, 0};
 /**
-* main - function for monty code interpreter
-* @argc: argument count
-* @argv: argument value
-*
-* Return: 0 on success
-*/
+ * main - monty code interpreter
+ * @argc: number of arguments
+ * @argv: monty file location
+ * Return: 0 on success
+ */
 int main(int argc, char *argv[])
 {
-	char *content = NULL;
+	char *content;
 	FILE *file;
 	size_t size = 0;
 	ssize_t read_line = 1;
 	stack_t *stack = NULL;
-	unsigned int counter = 0;
+	UINT counter = 0;
 
 	if (argc != 2)
 	{
@@ -22,7 +21,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	file = fopen(argv[1], "r");
-	bosnia.file = file;
+	bus.file = file;
 	if (!file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
@@ -32,7 +31,7 @@ int main(int argc, char *argv[])
 	{
 		content = NULL;
 		read_line = getline(&content, &size, file);
-		bosnia.content = content;
+		bus.content = content;
 		counter++;
 		if (read_line > 0)
 		{
@@ -40,24 +39,26 @@ int main(int argc, char *argv[])
 		}
 		free(content);
 	}
-	frees(stack);
+	free_stack(stack);
 	fclose(file);
-return (0);
+	return (0);
 }
 
-/**
- * frees - frees linked list
- * @head: head stack
- */
-void frees(stack_t *head)
-{
-	stack_t *copys;
 
-	copys = head;
+#include "monty.h"
+/**
+ * free_stack - frees a doubly linked list
+ * @head: head of the stack
+ */
+void free_stack(stack_t *head)
+{
+	stack_t *aux;
+
+	aux = head;
 	while (head)
 	{
-		copys = head->next;
+		aux = head->next;
 		free(head);
-		head = copys;
+		head = aux;
 	}
 }
