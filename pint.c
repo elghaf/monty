@@ -12,7 +12,7 @@ void pint(stack_t **stack_beg, unsigned int l_num)
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n", l_num);
 		free(data);
-		free_dlistint(*stack_beg);
+		free_distant(*stack_beg);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack_beg)->n);

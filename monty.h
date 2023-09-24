@@ -50,7 +50,7 @@ typedef struct instruction_s
 
 extern instruction_t instruction_code[];
 
-void free_dlistint(stack_t *head);
+void free_distant(stack_t *head);
 
 void push(stack_t **stack_beg, unsigned int l_num);
 void pall(stack_t **stack_beg, unsigned int l_num);

@@ -4,13 +4,13 @@ int dtada = STACK;
 char **data = NULL;
 
 /**
- * free_dlistint - Frees a dlistint_t list.
+ * free_distant - Frees a free_distant list.
  * @head: Pointer to the head of the list.
  *
  * Description: This function frees the memory allocated for a doubly linked
  * list of integers and sets the head pointer to NULL.
  */
-void free_dlistint(stack_t *stack_head)
+void free_distant(stack_t *stack_head)
 {
     stack_t *free_l;
 
@@ -120,14 +120,14 @@ int main(int ac, char **av)
         {
             fprintf(stderr, "L%u: unknown instruction %s\n", line_number, data[0]);
             free(data);
-            free_dlistint(stack);
+            free_distant(stack);
             free(line);
             fclose(fp);
             exit(EXIT_FAILURE);
         }
         free(data);
     }
-    free_dlistint(stack);
+    free_distant(stack);
     free(line);
     fclose(fp);
     return (0);
