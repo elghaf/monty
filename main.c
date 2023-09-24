@@ -29,24 +29,24 @@ void free_dlistint(stack_t *stack_head)
  * Return: A dynamically allocated array of strings containing the words.
  *         The last element of the array is NULL.
  */
-char **split(char *str)
+char **split(char *split_string)
 {
-    char *token = strtok(str, " \t\n\r\f");
-    char **array = malloc(sizeof(*array) * 1024);
+    char *string_oked = strtok(split_string, " \t\n\r\f");
+    char **list_arr = malloc(sizeof(*list_arr) * 1024);
     size_t i = 0;
 
-    if (!array)
+    if (!list_arr)
     {
         fprintf(stderr, "Error: malloc failed\n");
         exit(EXIT_FAILURE);
     }
-    for (i = 0; token != NULL; i++)
+    for (i = 0; string_oked != NULL; i++)
     {
-        array[i] = token;
-        token = strtok(NULL, " \t\n\r\f");
+        list_arr[i] = string_oked;
+        string_oked = strtok(NULL, " \t\n\r\f");
     }
-    array[i] = NULL;
-    return (array);
+    list_arr[i] = NULL;
+    return (list_arr);
 }
 
 /**
