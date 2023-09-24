@@ -40,7 +40,24 @@ int main(int argc, char *argv[])
 		}
 		free(content);
 	}
-	free_stack(stack);
+	frees(stack);
 	fclose(file);
 return (0);
+}
+
+/**
+ * frees - frees linked list
+ * @head: head stack
+ */
+void frees(stack_t *head)
+{
+	stack_t *copys;
+
+	copys = head;
+	while (head)
+	{
+		copys = head->next;
+		free(head);
+		head = copys;
+	}
 }
