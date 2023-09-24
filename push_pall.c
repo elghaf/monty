@@ -1,7 +1,7 @@
 #include "monty.h"
 /**
  * is_Number - Number to check.
- * @arg: The string that has to check.
+ * @check_numb: The string that has to check.
  *
  * Return: 1 if number, 0 otherwise.
  */
@@ -91,19 +91,16 @@ void push(stack_t **stack_beg, unsigned int l_num)
 /**
  * pall - Print the val of the stack.
  * @stack_beg: Double pointer of the head stack.
- * @line_number: The line number of files.
+ * @l_num: The line number of files.
  */
 void pall(stack_t **stack_beg, unsigned int l_num)
 {
 	stack_t *cc;
 	(void)l_num;
 
-
 	if (stack_beg == NULL)
 		return;
-
 	cc = *stack_beg;
-
 	while (cc)
 	{
 		printf("%d\n", cc->n);
