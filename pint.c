@@ -10,7 +10,7 @@ void pint(stack_t **stack_beg, unsigned int l_num)
 {
 	if (stack_beg == NULL || *stack_beg == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", l_num);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", l_num);
 		free(data);
 		free_dlistint(*stack_beg);
 		exit(EXIT_FAILURE);

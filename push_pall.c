@@ -30,7 +30,7 @@ void push(stack_t **stack_beg, unsigned int l_num)
 
 	if (!first_args)
 	{
-		fprintf(stderr, "L%u: Error\n", l_num);
+		fprintf(stderr, "L%u: usage: push integer\n", l_num);
 		exit(EXIT_FAILURE);
 	}
 	is_Negative = 0;
@@ -41,7 +41,7 @@ void push(stack_t **stack_beg, unsigned int l_num)
 	}
 	if (!is_Number(first_args))
 	{
-		fprintf(stderr, "L%u: Error\n", l_num);
+		fprintf(stderr, "L%u: usage: push integer\n", l_num);
 		exit(EXIT_FAILURE);
 	}
 	val = atoi(first_args);
