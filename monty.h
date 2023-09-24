@@ -69,7 +69,7 @@ extern bus_t bus;
 extern instruction_t instruction_code[];
 
 void free_distant(stack_t *head);
-
+void mod(stack_t **stack, unsigned int lines);
 void push(stack_t **stacks, unsigned int numbers);
 void pall(stack_t **stacks, unsigned int numbers);
 
