@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
         line_counter++;
         if (read_line > 0)
         {
-            execute(line_content, &stack, line_counter, monty_file);
+            instuction(line_content, &stack, line_counter, monty_file);
         }
         free(line_content);
     }
