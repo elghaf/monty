@@ -1,111 +1,112 @@
 #include "monty.h"
 /**
- * is_Number - Checks if a string is a number.
- * @arg: The string to check.
+ * is_Number - Number to check.
+ * @arg: The string that has to check.
  *
- * Return: 1 if the string is a number, 0 otherwise.
+ * Return: 1 if number, 0 otherwise.
  */
-int is_Number(char *arg)
+int is_Number(char *check_numb)
 {
-	int i;
+	int check;
 
-	for (i = 0; arg[i]; i++)
+	for (check = 0; check_numb[check]; check++)
 	{
-		if (!isdigit(arg[i]))
+		if (!isdigit(check_numb[check]))
 			return (0);
 	}
 	return (1);
 }
-/**
- * push - Pushes an element onto the stack.
- * @top: A pointer to the top of the stack.
- * @line_number: The line number in the Monty file where push was called.
- */
-void push(stack_t **top, unsigned int line_number)
-{
-	char *arg = data[1];
-	int val, is_Negative;
-	stack_t *new;
 
-	if (!arg)
+/**
+ * push - Push l_num to the stack.
+ * @stack_beg: A pointer to the top of the stack.
+ * @l_num: The line number in the Monty file where push was called.
+ */
+void push(stack_t **stack_beg, unsigned int l_num)
+{
+	char *first_args = data[1];
+	int val, is_Negative;
+	stack_t *copy_stack;
+
+	if (!first_args)
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: Error\n", l_num);
 		exit(EXIT_FAILURE);
 	}
 	is_Negative = 0;
-	if (arg[0] == '-')
+	if (first_args[0] == '-')
 	{
 		is_Negative = 1;
-		arg++;
+		first_args++;
 	}
-	if (!is_Number(arg))
+	if (!is_Number(first_args))
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: Error\n", l_num);
 		exit(EXIT_FAILURE);
 	}
-	val = atoi(arg);
+	val = atoi(first_args);
 	if (is_Negative)
 		val = -val;
-	new = malloc(sizeof(stack_t));
+	copy_stack = malloc(sizeof(stack_t));
 
-	if (new == NULL)
+	if (copy_stack == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
-	new->prev = NULL;
-	new->n = val;
-	new->next = NULL;
+	copy_stack->prev = NULL;
+	copy_stack->n = val;
+	copy_stack->next = NULL;
 
-	if (dtada == STACK) /* Push onto stack */
+	if (dtada == STACK)
 	{
-		if (!*top)
-			*top = new;
+		if (!*stack_beg)
+			*stack_beg = copy_stack;
 		else
 		{
-			new->next = *top;
-			(*top)->prev = new;
-			*top = new;
+			copy_stack->next = *stack_beg;
+			(*stack_beg)->prev = copy_stack;
+			*stack_beg = copy_stack;
 		}
 	}
-	else if (dtada == QUEUE) /* Push to the back of the queue */
+	else if (dtada == QUEUE)
 	{
-		stack_t *temp = *top;
+		stack_t *temp = *stack_beg;
 
 		if (!temp)
 		{
-			*top = new;
+			*stack_beg = copy_stack;
 		}
 		else
 		{
 			while (temp->next)
 				temp = temp->next;
-			temp->next = new;
-			new->prev = temp;
+			temp->next = copy_stack;
+			copy_stack->prev = temp;
 		}
 	}
 }
 
 /**
- * pall - Prints all values on the stack.
- * @stack: Double pointer to the beginning of the stack.
- * @line_number: The line number in the Monty bytecode file.
+ * pall - Print the val of the stack.
+ * @stack_beg: Double pointer of the head stack.
+ * @line_number: The line number of files.
  */
-void pall(stack_t **stack, unsigned int line_number)
+void pall(stack_t **stack_beg, unsigned int l_num)
 {
-	stack_t *curr;
-	(void)line_number;
+	stack_t *cc;
+	(void)l_num;
 
 
-	if (stack == NULL)
+	if (stack_beg == NULL)
 		return;
 
-	curr = *stack;
+	cc = *stack_beg;
 
-	while (curr)
+	while (cc)
 	{
-		printf("%d\n", curr->n);
-		curr = curr->next;
+		printf("%d\n", cc->n);
+		cc = cc->next;
 	}
 }

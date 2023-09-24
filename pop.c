@@ -2,30 +2,30 @@
 
 /**
  * pop - Removes the top element of the stack.
- * @stack: Double pointer to the beginning of the stack.
- * @line_number: The line number in the Monty bytecode file.
+ * @stack_beg: Double pointer to the beginning of the stack.
+ * @l_num: The line number in the Monty bytecode file.
  */
 
-void pop(stack_t **stack, unsigned int line_number)
+void pop(stack_t **stack_beg, unsigned int l_num)
 {
-	stack_t *curr;
+	stack_t *cc;
 
-	if (!*stack)
+	if (!*stack_beg)
 	{
-		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", stack_beg);
 		exit(EXIT_FAILURE);
 	}
-	curr = *stack;
-	if (curr->next == NULL)
+	cc = *stack_beg;
+	if(cc->next == NULL)
 	{
-		*stack = NULL;
-		free(curr);
+		*stack_beg = NULL;
+		free(cc);
 	}
 	else
 	{
-		*stack = curr->next;
-		curr->next->prev = NULL;
-		free(curr);
+		*stack_beg = cc->next;
+		cc->next->prev = NULL;
+		free(cc);
 	}
 }
 

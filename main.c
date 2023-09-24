@@ -57,7 +57,7 @@ char **split(char *str)
  */
 int main(int ac, char **av)
 {
-    instruction_t opcodes_Fun[] = {
+    instruction_t instruction_code[] = {
         {"push", push},
         {"pall", pall},
 		{"pint",pint},
@@ -107,16 +107,16 @@ int main(int ac, char **av)
             dtada = QUEUE;
             continue;
         }
-        for (i = 0; opcodes_Fun[i].opcode != NULL; i++)
+        for (i = 0; instruction_code[i].opcode != NULL; i++)
         {
-            if (strcmp(data[0], opcodes_Fun[i].opcode) == 0)
+            if (strcmp(data[0], instruction_code[i].opcode) == 0)
             {
-                opcodes_Fun[i].f(&stack, line_number);
+                instruction_code[i].f(&stack, line_number);
                 break;
             }
         }
 
-        if (opcodes_Fun[i].opcode == NULL)
+        if (instruction_code[i].opcode == NULL)
         {
             fprintf(stderr, "L%u: unknown instruction %s\n", line_number, data[0]);
             free(data);
