@@ -18,11 +18,11 @@ int is_Number(char *check_numb)
 }
 
 /**
- * push - Push l_num to the stack.
+ * push - Push numbers to the stack.
  * @stack_beg: A pointer to the top of the stack.
- * @l_num: The line number in the Monty file where push was called.
+ * @numbers: The line number in the Monty file where push was called.
  */
-void push(stack_t **stack_beg, unsigned int l_num)
+void push(stack_t **stack_beg, unsigned int numbers)
 {
 	char *first_args = data[1];
 	int val, is_Negative;
@@ -30,7 +30,7 @@ void push(stack_t **stack_beg, unsigned int l_num)
 
 	if (!first_args)
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", l_num);
+		fprintf(stderr, "L%u: usage: push integer\n", numbers);
 		exit(EXIT_FAILURE);
 	}
 	is_Negative = 0;
@@ -41,7 +41,7 @@ void push(stack_t **stack_beg, unsigned int l_num)
 	}
 	if (!is_Number(first_args))
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", l_num);
+		fprintf(stderr, "L%u: usage: push integer\n", numbers);
 		exit(EXIT_FAILURE);
 	}
 	val = atoi(first_args);
@@ -91,12 +91,12 @@ void push(stack_t **stack_beg, unsigned int l_num)
 /**
  * pall - Print the val of the stack.
  * @stack_beg: Double pointer of the head stack.
- * @l_num: The line number of files.
+ * @numbers: The line number of files.
  */
-void pall(stack_t **stack_beg, unsigned int l_num)
+void pall(stack_t **stack_beg, unsigned int numbers)
 {
 	stack_t *cc;
-	(void)l_num;
+	(void)numbers;
 
 	if (stack_beg == NULL)
 		return;

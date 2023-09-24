@@ -3,16 +3,16 @@
 /**
  * swap - Swaps top two elem.
  * @stack_beg: Double pointer to the beginning of the stack.
- * @l_num: The line number files.
+ * @numbers: The line number files.
  */
 
-void swap(stack_t **stack_beg, unsigned int l_num)
+void swap(stack_t **stack_beg, unsigned int numbers)
 {
 	int nano_nu;
 
 	if (*stack_beg == NULL || (*stack_beg)->next == NULL)
 	{
-		fprintf(stderr, "L%d: Error Swap\n", l_num);
+		fprintf(stderr, "L%d: Error Swap\n", numbers);
 		exit(EXIT_FAILURE);
 	}
     else

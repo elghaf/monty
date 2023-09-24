@@ -4,9 +4,9 @@
  * pint - Prints the value at the top of the stack,
  * followed by a newline.
  * @stack_beg: Double pointer to the beginning of the stack.
- * @l_num: The line number in the Monty bytecode file.
+ * @numbers: The line number in the Monty bytecode file.
  */
-void pint(stack_t **stack_beg, unsigned int l_num)
+void pint(stack_t **stack_beg, unsigned int numbers)
 {
 	if (*stack_beg)
 	{
@@ -14,7 +14,7 @@ void pint(stack_t **stack_beg, unsigned int l_num)
 	}
 	else
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", l_num);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", numbers);
 		exit(EXIT_FAILURE);
 	}
 }
