@@ -3,6 +3,7 @@
  * nop - Does nothing.
  * @stack: Double pointer to the beginning of the stack.
  * @l_num: The line number in the Monty bytecode file.
+ * Return: nothing
  */
 
 void nop(stack_t **stack, unsigned int l_num)
