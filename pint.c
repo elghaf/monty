@@ -1,7 +1,8 @@
 #include "monty.h"
 
 /**
- * pint - Prints the value at the top of the stack, followed by a newline.
+ * pint - Prints the value at the top of the stack,
+ * followed by a newline.
  * @stack_beg: Double pointer to the beginning of the stack.
  * @l_num: The line number in the Monty bytecode file.
  */
