@@ -12,7 +12,7 @@ void pop(stack_t **stack_beg, unsigned int l_num)
 
 	if (!*stack_beg)
 	{
-		fprintf(stderr, "L%u: can't pop an empty stack\n", stack_beg);
+		fprintf(stderr, "L%u: Error pop stack.\n", l_num);
 		exit(EXIT_FAILURE);
 	}
 	cc = *stack_beg;
