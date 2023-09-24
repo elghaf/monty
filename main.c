@@ -1,7 +1,7 @@
 #include "monty.h"
 
-char **tokens = NULL;
-int mode = STACK;
+int dtada = STACK;
+char **data = NULL;
 
 /**
  * free_dlistint - Frees a dlistint_t list.
@@ -60,6 +60,7 @@ int main(int ac, char **av)
     instruction_t opcodes_Fun[] = {
         {"push", push},
         {"pall", pall},
+		{"pint",pint},
         {NULL, NULL}
     };
     char *line = NULL;
@@ -87,25 +88,25 @@ int main(int ac, char **av)
         line_number++;
         if (line[0] == '#')
             continue;
-        tokens = split(line);
-        if (tokens[0] == NULL)
+        data = split(line);
+        if (data[0] == NULL)
         {
-            free(tokens);
+            free(data);
             continue;
         }
-        if (strcmp(tokens[0], "stack") == 0)
+        if (strcmp(data[0], "stack") == 0)
         {
-            mode = STACK;
+            dtada = STACK;
             continue;
         }
-        else if (strcmp(tokens[0], "queue") == 0)
+        else if (strcmp(data[0], "queue") == 0)
         {
-            mode = QUEUE;
+            dtada = QUEUE;
             continue;
         }
         for (i = 0; opcodes_Fun[i].opcode != NULL; i++)
         {
-            if (strcmp(tokens[0], opcodes_Fun[i].opcode) == 0)
+            if (strcmp(data[0], opcodes_Fun[i].opcode) == 0)
             {
                 opcodes_Fun[i].f(&stack, line_number);
                 break;
@@ -114,14 +115,14 @@ int main(int ac, char **av)
 
         if (opcodes_Fun[i].opcode == NULL)
         {
-            fprintf(stderr, "L%u: unknown instruction %s\n", line_number, tokens[0]);
-            free(tokens);
+            fprintf(stderr, "L%u: unknown instruction %s\n", line_number, data[0]);
+            free(data);
             free_dlistint(stack);
             free(line);
             fclose(fp);
             exit(EXIT_FAILURE);
         }
-        free(tokens);
+        free(data);
     }
     free_dlistint(stack);
     free(line);

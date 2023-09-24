@@ -12,9 +12,11 @@
 #define STACK 0
 #define QUEUE 1
 
+
+extern int dtada;
+
 extern char *line;
-extern char **tokens;
-extern int mode;
+extern char **data;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -52,5 +54,9 @@ void free_dlistint(stack_t *head);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 
+void nop(stack_t **stack, unsigned int l_num);
+void pop(stack_t **stack, unsigned int line_number);
+
+void pint(stack_t **stack, unsigned int line_number);
 
 #endif

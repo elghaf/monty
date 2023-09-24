@@ -23,7 +23,7 @@ int is_Number(char *arg)
  */
 void push(stack_t **top, unsigned int line_number)
 {
-	char *arg = tokens[1];
+	char *arg = data[1];
 	int val, is_Negative;
 	stack_t *new;
 
@@ -58,7 +58,7 @@ void push(stack_t **top, unsigned int line_number)
 	new->n = val;
 	new->next = NULL;
 
-	if (mode == STACK) /* Push onto stack */
+	if (dtada == STACK) /* Push onto stack */
 	{
 		if (!*top)
 			*top = new;
@@ -69,7 +69,7 @@ void push(stack_t **top, unsigned int line_number)
 			*top = new;
 		}
 	}
-	else if (mode == QUEUE) /* Push to the back of the queue */
+	else if (dtada == QUEUE) /* Push to the back of the queue */
 	{
 		stack_t *temp = *top;
 
