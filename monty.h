@@ -48,26 +48,22 @@ typedef struct instruction_s
 
 extern instruction_t opcodes_Fun[];
 
+
 void free_dlistint(stack_t *head);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
+void sub(stack_t **stack, unsigned int line_number);
+void divide(stack_t **stack, unsigned int line_number);
+void mul(stack_t **stack, unsigned int line_number);
+void mod(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void pchar(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
-
-void add_stack(stack_t **stk, unsigned int line_num);
-void sub_stack(stack_t **stk, unsigned int line_num);
-void divide_stack(stack_t **stk, unsigned int line_num);
-void mul_stack(stack_t **stk, unsigned int line_num);
-void mod_stack(stack_t **stk, unsigned int line_num);
-
-
-
-
-void print_top(stack_t **stk, unsigned int line_num);
-void remove_top(stack_t **stk, unsigned int line_num);
-void swap_top(stack_t **stk, unsigned int line_num);
-void do_nothing(stack_t **stk, unsigned int line_num);
 
 #endif
