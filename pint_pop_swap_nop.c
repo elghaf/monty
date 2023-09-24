@@ -50,6 +50,7 @@ void remove_top(stack_t **stk, unsigned int line_num)
  * @stk: Double pointer to the beginning of the stack.
  * @line_num: The line number in the Monty bytecode file.
  */
+
 void swap_top(stack_t **stk, unsigned int line_num)
 {
     int num;
