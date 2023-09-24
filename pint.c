@@ -8,12 +8,13 @@
  */
 void pint(stack_t **stack_beg, unsigned int l_num)
 {
-	if (*stack_beg == NULL || stack_beg == NULL)
+	if (*stack_beg)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n", l_num);
-		free(data);
-		free_distant(*stack_beg);
+		printf("%d\n", (*stack_beg)->n);
+	}
+	else
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", l_num);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", (*stack_beg)->n);
 }
