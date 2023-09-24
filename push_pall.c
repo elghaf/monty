@@ -19,10 +19,10 @@ int is_Number(char *check_numb)
 
 /**
  * push - Push numbers to the stack.
- * @stack_beg: A pointer to the top of the stack.
+ * @stacks: A pointer to the top of the stack.
  * @numbers: The line number in the Monty file where push was called.
  */
-void push(stack_t **stack_beg, unsigned int numbers)
+void push(stack_t **stacks, unsigned int numbers)
 {
 	char *first_args = data[1];
 	int val, is_Negative;
@@ -61,22 +61,22 @@ void push(stack_t **stack_beg, unsigned int numbers)
 
 	if (dtada == STACK)
 	{
-		if (!*stack_beg)
-			*stack_beg = copy_stack;
+		if (!*stacks)
+			*stacks = copy_stack;
 		else
 		{
-			copy_stack->next = *stack_beg;
-			(*stack_beg)->prev = copy_stack;
-			*stack_beg = copy_stack;
+			copy_stack->next = *stacks;
+			(*stacks)->prev = copy_stack;
+			*stacks = copy_stack;
 		}
 	}
 	else if (dtada == QUEUE)
 	{
-		stack_t *temp = *stack_beg;
+		stack_t *temp = *stacks;
 
 		if (!temp)
 		{
-			*stack_beg = copy_stack;
+			*stacks = copy_stack;
 		}
 		else
 		{
@@ -90,17 +90,17 @@ void push(stack_t **stack_beg, unsigned int numbers)
 
 /**
  * pall - Print the val of the stack.
- * @stack_beg: Double pointer of the head stack.
+ * @stacks: Double pointer of the head stack.
  * @numbers: The line number of files.
  */
-void pall(stack_t **stack_beg, unsigned int numbers)
+void pall(stack_t **stacks, unsigned int numbers)
 {
 	stack_t *cc;
 	(void)numbers;
 
-	if (stack_beg == NULL)
+	if (stacks == NULL)
 		return;
-	cc = *stack_beg;
+	cc = *stacks;
 	while (cc)
 	{
 		printf("%d\n", cc->n);

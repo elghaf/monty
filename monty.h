@@ -70,14 +70,14 @@ extern instruction_t instruction_code[];
 
 void free_distant(stack_t *head);
 
-void push(stack_t **stack_beg, unsigned int numbers);
-void pall(stack_t **stack_beg, unsigned int numbers);
+void push(stack_t **stacks, unsigned int numbers);
+void pall(stack_t **stacks, unsigned int numbers);
 
-void nop(stack_t **stack_beg, unsigned int numbers);
-void pop(stack_t **stack_beg, unsigned int numbers);
+void nop(stack_t **stacks, unsigned int numbers);
+void pop(stack_t **stacks, unsigned int numbers);
 
-void pint(stack_t **stack_beg, unsigned int numbers);
+void pint(stack_t **stacks, unsigned int numbers);
 
-void swap(stack_t **stack_beg, unsigned int numbers);
+void swap(stack_t **stacks, unsigned int numbers);
 
 #endif

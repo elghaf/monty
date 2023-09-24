@@ -3,14 +3,14 @@
 /**
  * pint - Prints the value at the top of the stack,
  * followed by a newline.
- * @stack_beg: Double pointer to the beginning of the stack.
+ * @stacks: Double pointer to the beginning of the stack.
  * @numbers: The line number in the Monty bytecode file.
  */
-void pint(stack_t **stack_beg, unsigned int numbers)
+void pint(stack_t **stacks, unsigned int numbers)
 {
-	if (*stack_beg)
+	if (*stacks)
 	{
-		printf("%d\n", (*stack_beg)->n);
+		printf("%d\n", (*stacks)->n);
 	}
 	else
 	{
