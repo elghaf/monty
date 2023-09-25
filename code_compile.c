@@ -1,14 +1,14 @@
 #include "monty.h"
 
 /**
- * execute - Executes the Monty opcode.
+ * instuction - intruct the Monty.
  * @line_content: Line content from the Monty file.
  * @stack: Pointer to the head of the linked list (stack).
  * @counter: Line counter.
  * @file: Pointer to the Monty file.
  * Return: 0 on success, 1 on failure.
  */
-int execute(char *line_content, stack_t **stack, unsigned int counter, FILE *file)
+int instuction(char *line_content, stack_t **stack, unsigned int counter, FILE *file)
 {
     instruction_t opcodes[] = {
         {"push", op_push},
@@ -38,7 +38,7 @@ int execute(char *line_content, stack_t **stack, unsigned int counter, FILE *fil
     if (opcode && opcode[0] == '#')
         return (0);
 
-    monty_bus.arg = strtok(NULL, " \n\t");
+    bus.arg = strtok(NULL, " \n\t");
 
     while (opcodes[i].opcode && opcode)
     {

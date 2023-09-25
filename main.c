@@ -2,10 +2,10 @@
 bus_t monty_bus = {NULL, NULL, NULL, 0};
 
 /**
- * main - Monty code interpreter
+ * main - Monty main
  * @argc: number of arguments
- * @argv: Monty file location
- * Return: 0 on success
+ * @argv: Monty files
+ * Return: none
  */
 int main(int argc, char *argv[])
 {
@@ -47,10 +47,10 @@ int main(int argc, char *argv[])
 
 #include "monty.h"
 /**
- * free_stack - frees a doubly linked list
+ * frees - doubly linked list
  * @head: head of the stack
  */
-void free_stack(stack_t *head)
+void frees(stack_t *head)
 {
     stack_t *aux;
 
