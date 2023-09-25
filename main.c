@@ -16,7 +16,7 @@ int main(int argc, const char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	filo = argv[1];
-	files_name(filo);
+	parse_file(filo);
 
 	return (0);
 }
