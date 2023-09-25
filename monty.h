@@ -44,11 +44,12 @@ extern stack_t *head;
 typedef void (*what_function)(stack_t **, unsigned int);
 
 /*file operations*/
-void open_file(char *file_name);
-int parse_line(char *buffer, int line_number, int format);
-void read_file(FILE *);
+void openFile(char *fileName);
+void callFunction(what_function func, char *op, char *val, int lineNumber, int format);
+int parseLine(char *buffer, int lineNumber, int format);
+void readFile(FILE *fd);
 int len_chars(FILE *);
-void find_func(char *, char *, int, int);
+void findFunction(char *opcode, char *value, int lineNumber, int format);
 
 /*Stack operations*/
 stack_t *create_node(int n);
