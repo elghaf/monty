@@ -3,8 +3,7 @@
 /**
  * files_name - function that execute the  instruction.
  * @instr: the instruction.
- * @line_number: the line when the instruction found for
- * error handling.
+ * @line_number: the line.
  * Return: Nothing.
  */
 void files_name(char *instr, unsigned int line_number)

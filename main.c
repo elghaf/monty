@@ -3,8 +3,8 @@
 /**
  * main - The monty program.
  * @argc: a pointer to the number of arguments.
- * @argv: a pointer to an arryay of arguments.
- * Return: 0 (Success), otherwise (failuir).
+ * @argv: a pointer of arguments.
+ * Return: 0 (Success), otherwise (fail).
  */
 int main(int argc, const char *argv[])
 {

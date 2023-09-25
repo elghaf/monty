@@ -19,7 +19,7 @@ void parse_file(const char *filename)
 	while (fgets(line, sizeof(line), file))
 	{
 		line_number++;
-		execute_instr(line, line_number);
+		files_name(line, line_number);
 	}
 	fclose(file);
 }
