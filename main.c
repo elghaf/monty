@@ -2,13 +2,9 @@
 
 #define MAX_LINE_LENGTH 1024
 
-void free_stack(stack_t *stack);
-
-void read_file(FILE *file_pointer, instruction_t opcodes[], stack_t **stack);
-
 /**
- * free_stack - frees a stack_t stack
- * @stack: pointer to the top of the stack
+ * free_stack - Frees a stack_t stack.
+ * @stack: Pointer to the top of the stack.
  *
  * Return: void
  */
@@ -25,11 +21,11 @@ void free_stack(stack_t *stack)
 }
 
 /**
- * main - the entry point for Monty interpreter
- * @argc: number of arguments
- * @argv: array of arguments
+ * main - Entry point for the Monty interpreter.
+ * @argc: Number of arguments.
+ * @argv: Array of arguments.
  *
- * Return: EXIT_SUCCESS on success, EXIT_FAILURE on failure
+ * Return: EXIT_SUCCESS on success, EXIT_FAILURE on failure.
  */
 int main(int argc, char **argv)
 {
@@ -42,7 +38,8 @@ int main(int argc, char **argv)
 		{"pop", pop},
 		{"nop", nop},
 		{"swap", swap},
-		{NULL, NULL}};
+		{NULL, NULL}
+	};
 
 	if (argc != 2)
 	{
@@ -65,10 +62,10 @@ int main(int argc, char **argv)
 }
 
 /**
- * read_file - reads an input file line by line and executes instructions
+ * read_file - Reads an input file line by line and executes instructions.
  * @file_pointer: The file pointer to the input file.
  * @opcodes: An array of instruction_t structs.
- * @stack: the  pointer to the top of the stack.
+ * @stack: Pointer to the top of the stack.
  *
  * Return: void
  */
@@ -104,9 +101,9 @@ void read_file(FILE *file_pointer, instruction_t opcodes[], stack_t **stack)
 }
 
 /**
- * pint - prints a value at the top of the stack, followed by new line
- * @stack: double pointer to a top of the stack
- * @line: line number of a current opcode
+ * pint - Prints a value at the top of the stack, followed by a newline.
+ * @stack: Double pointer to the top of the stack.
+ * @line: Line number of the current opcode.
  *
  * Return: void
  */
@@ -120,4 +117,3 @@ void pint(stack_t **stack, unsigned int line)
 
 	printf("%d\n", (*stack)->n);
 }
-

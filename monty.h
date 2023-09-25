@@ -46,5 +46,9 @@ void pall(stack_t **stack, unsigned int line);
 void add_node(stack_t **head, const int n);
 int _isdigit(char *str);
 
+void free_stack(stack_t *stack);
+
+void read_file(FILE *file_pointer, instruction_t opcodes[], stack_t **stack);
+
 #endif /* MONTY_H */
 
