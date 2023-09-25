@@ -1,90 +1,85 @@
 #include "monty.h"
 
 /**
- * open_file - opens a file
- * @file_name: the file namepath
+ * openFile - opens a file
+ * @fileName: the file name path
  * Return: void
  */
-
-void open_file(char *file_name)
+void openFile(char *fileName)
 {
-	FILE *fd = fopen(file_name, "r");
+    FILE *fileDescriptor = fopen(fileName, "r");
 
-	if (file_name == NULL || fd == NULL)
-		err(2, file_name);
+    if (fileName == NULL || fileDescriptor == NULL)
+        err(2, fileName);
 
-	read_file(fd);
-	fclose(fd);
+    readFile(fileDescriptor);
+    fclose(fileDescriptor);
 }
 
-
 /**
- * read_file - reads a file
+ * readFile - reads a file
  * @fd: pointer to file descriptor
  * Return: void
  */
-
-void read_file(FILE *fd)
+void readFile(FILE *fd)
 {
-	int line_number, format = 0;
-	char *buffer = NULL;
-	size_t len = 0;
+    int lineNumber, format = 0;
+    char *buffer = NULL;
+    size_t len = 0;
 
-	for (line_number = 1; getline(&buffer, &len, fd) != -1; line_number++)
-	{
-		format = parse_line(buffer, line_number, format);
-	}
-	free(buffer);
+    for (lineNumber = 1; getline(&buffer, &len, fd) != -1; lineNumber++)
+    {
+        format = parseLine(buffer, lineNumber, format);
+    }
+    free(buffer);
 }
 
-
 /**
- * parse_line - Separates each line into tokens to determine
+ * parseLine - Separates each line into tokens to determine
  * which function to call
  * @buffer: line from the file
- * @line_number: line number
- * @format:  storage format. If 0 Nodes will be entered as a stack.
- * if 1 nodes will be entered as a queue.
+ * @lineNumber: line number
+ * @format: storage format. If 0, nodes will be entered as a stack.
+ *          If 1, nodes will be entered as a queue.
  * Return: Returns 0 if the opcode is stack. 1 if queue.
  */
-
-int parse_line(char *buffer, int line_number, int format)
+int parseLine(char *buffer, int lineNumber, int format)
 {
-	char *opcode, *value;
-	const char *delim = "\n ";
+    char *opcode, *value;
+    const char *delim = "\n ";
 
-	if (buffer == NULL)
-		err(4);
+    if (buffer == NULL)
+        err(4);
 
-	opcode = strtok(buffer, delim);
-	if (opcode == NULL)
-		return (format);
-	value = strtok(NULL, delim);
+    opcode = strtok(buffer, delim);
+    if (opcode == NULL)
+        return (format);
+    value = strtok(NULL, delim);
 
-	if (strcmp(opcode, "stack") == 0)
-		return (0);
-	if (strcmp(opcode, "queue") == 0)
-		return (1);
+    if (strcmp(opcode, "stack") == 0)
+        return (0);
+    if (strcmp(opcode, "queue") == 0)
+        return (1);
 
-	find_func(opcode, value, line_number, format);
-	return (format);
+    findFunction(opcode, value, lineNumber, format);
+    return (format);
 }
 
 /**
- * find_func - find the appropriate function for the opcode
+ * findFunction - find the appropriate function for the opcode
  * @opcode: opcode
  * @value: argument of opcode
- * @format:  storage format. If 0 Nodes will be entered as a stack.
- * @ln: line number
- * if 1 nodes will be entered as a queue.
+ * @format: storage format. If 0, nodes will be entered as a stack.
+ *          If 1, nodes will be entered as a queue.
+ * @lineNumber: line number
  * Return: void
  */
-void find_func(char *opcode, char *value, int ln, int format)
+void findFunction(char *opcode, char *value, int lineNumber, int format)
 {
-	int i;
-	int flag;
+    int functionIndex;
+    int functionFound;
 
-	instruction_t func_list[] = {
+	instruction_t funcList[] = {
 		{"push", add_to_stack},
 		{"pall", print_stack},
 		{"pint", print_top},
@@ -93,58 +88,58 @@ void find_func(char *opcode, char *value, int ln, int format)
 		{NULL, NULL}
 	};
 
-	if (opcode[0] == '#')
-		return;
 
-	for (flag = 1, i = 0; func_list[i].opcode != NULL; i++)
-	{
-		if (strcmp(opcode, func_list[i].opcode) == 0)
-		{
-			call_fun(func_list[i].f, opcode, value, ln, format);
-			flag = 0;
-		}
-	}
-	if (flag == 1)
-		err(3, ln, opcode);
+    if (opcode[0] == '#')
+        return;
+
+    for (functionFound = 1, functionIndex = 0; funcList[functionIndex].opcode != NULL; functionIndex++)
+    {
+        if (strcmp(opcode, funcList[functionIndex].opcode) == 0)
+        {
+            callFunction(funcList[functionIndex].f, opcode, value, lineNumber, format);
+            functionFound = 0;
+        }
+    }
+    if (functionFound == 1)
+        err(3, lineNumber, opcode);
 }
 
-
 /**
- * call_fun - Calls the required function.
+ * callFunction - Calls the required function.
  * @func: Pointer to the function that is about to be called.
  * @op: string representing the opcode.
  * @val: string representing a numeric value.
- * @ln: line numeber for the instruction.
- * @format: Format specifier. If 0 Nodes will be entered as a stack.
- * if 1 nodes will be entered as a queue.
+ * @lineNumber: line number for the instruction.
+ * @format: Format specifier. If 0, nodes will be entered as a stack.
+ *          If 1, nodes will be entered as a queue.
  */
-void call_fun(op_func func, char *op, char *val, int ln, int format)
+void callFunction(what_function func, char *op, char *val, int lineNumber, int format)
 {
-	stack_t *node;
-	int flag;
-	int i;
+    stack_t *node;
+    int isNegativeValue;
+    int characterIndex;
 
-	flag = 1;
-	if (strcmp(op, "push") == 0)
-	{
-		if (val != NULL && val[0] == '-')
-		{
-			val = val + 1;
-			flag = -1;
-		}
-		if (val == NULL)
-			err(5, ln);
-		for (i = 0; val[i] != '\0'; i++)
-		{
-			if (isdigit(val[i]) == 0)
-				err(5, ln);
-		}
-		node = create_node(atoi(val) * flag);
-		if (format == 0)
-			func(&node, ln);
-		if (format == 1)
-			add_to_queue(&node, ln);
-	}
-	else
-		func(&head, ln);
+    isNegativeValue = 1;
+    if (strcmp(op, "push") == 0)
+    {
+        if (val != NULL && val[0] == '-')
+        {
+            val = val + 1;
+            isNegativeValue = -1;
+        }
+        if (val == NULL)
+            err(5, lineNumber);
+        for (characterIndex = 0; val[characterIndex] != '\0'; characterIndex++)
+        {
+            if (isdigit(val[characterIndex]) == 0)
+                err(5, lineNumber);
+        }
+        node = createNode(atoi(val) * isNegativeValue);
+        if (format == 0)
+            func(&node, lineNumber);
+        if (format == 1)
+            addToQueue(&node, lineNumber);
+    }
+    else
+        func(&head, lineNumber);
 }
