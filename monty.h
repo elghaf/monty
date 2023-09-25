@@ -65,4 +65,8 @@ void mod_fun(stack_t **head, unsigned int line_num);
 void pchar_fun(stack_t **head, unsigned int line_num);
 void pstr_fun(stack_t **head, unsigned int line_num);
 
+void pint(stack_t **head, unsigned int line_num);
+void push(stack_t **head, unsigned int line_num);
+void pall(stack_t **head, __attribute__((unused))unsigned int line_num);
+
 #endif

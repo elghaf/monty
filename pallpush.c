@@ -33,7 +33,7 @@ int check_validint(char *num)
  * Return: Nothing
  */
 
-void Push_To_Stack(stack_t **head, unsigned int line_num)
+void push(stack_t **head, unsigned int line_num)
 {
 	stack_t *temp;
 	int f, n;
@@ -82,7 +82,7 @@ void Push_To_Stack(stack_t **head, unsigned int line_num)
  * Return: Nothing
  */
 
-void Print_Stack(stack_t **head, __attribute__((unused))unsigned int line_num)
+void pall(stack_t **head, __attribute__((unused))unsigned int line_num)
 {
 	const stack_t *ptr = *head;
 	size_t n = 0;

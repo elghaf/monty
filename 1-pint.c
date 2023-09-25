@@ -8,7 +8,7 @@
  * Return: Nothing
  */
 
-void Top_Of_Stack(stack_t **head, unsigned int line_num)
+void pint(stack_t **head, unsigned int line_num)
 {
 	if (*head == NULL)
 	{

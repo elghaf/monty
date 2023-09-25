@@ -3,54 +3,55 @@
 handle_t handle = {NULL, NULL, NULL};
 
 /**
- * camelCaseFunction - function that chooses the opcode
+ * function_main - function that chooses the opcode
  *
  * @line: string containing the line
  * @head: head of the stack
  * @line_num: line number
  * Return: 0 or 1
  */
-int camelCaseFunction(char *line, stack_t **head, unsigned int line_num)
+int function_main(char *line, stack_t **head, unsigned int line_num)
 {
     unsigned int i = 0;
-    char *delimiter = " \t\n\r", *tok;
+    char *delimiter = " \t\n\r", *str_tok;
     instruction_t arr[] = {
         {"push", push}, {"pint", pint},
         {"pall", pall}, {"pop", pop},
         {"swap", swap}, {"add", add}, {"nop", nop},
         {"sub", sub},{NULL, NULL}
     };
-    tok = strtok(line, delimiter);
-    if (tok && tok[0] == '#')
+    str_tok = strtok(line, delimiter);
+    if (str_tok && str_tok[0] == '#')
         return (0);
     handle.num = strtok(NULL, delimiter);
-    while (arr[i].opcode && tok)
+    while (arr[i].opcode && str_tok)
     {
-        if (strcmp(arr[i].opcode, tok) == 0)
+        if (strcmp(arr[i].opcode, str_tok) == 0)
         {
             arr[i].f(head, line_num);
             return (0);
         }
         i++;
     }
-    if (tok && arr[i].opcode == NULL)
+    if (str_tok && arr[i].opcode == NULL)
     {
-        fprintf(stderr, "L%d: unknown instruction %s\n", line_num, tok);
+        fprintf(stderr, "L%d: unknown instruction %s\n", line_num, str_tok);
         fclose(handle.textfile);
         free(line);
-        freeTheStack(*head);
+        frees_the_stack(*head);
         exit(EXIT_FAILURE);
     }
     return (1);
 }
 
 /**
- * freeTheStack - function that frees the stack
- * @head: head of the stack
+ * frees_the_stack - function that frees our stack
+ * @head: head of our stack
  */
-void freeTheStack(stack_t *head)
+void frees_the_stack(stack_t *head)
 {
     stack_t *ptr;
+
     ptr = head;
     while (head)
     {
@@ -96,12 +97,12 @@ int main(int argc, char **argv)
         handle.str = line;
         if (i > 0)
         {
-            camelCaseFunction(line, &head, line_num);
+            function_main(line, &head, line_num);
         }
         i++;
         free(line);
     }
     fclose(textfile);
-    freeTheStack(head);
+    frees_the_stack(head);
     return (0);
 }
