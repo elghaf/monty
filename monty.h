@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <sys/types.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -23,9 +20,6 @@ typedef struct stack_s
 	struct stack_s *prev;
 	struct stack_s *next;
 } stack_t;
-extern stack_t *stack;
-extern unsigned int line_number;
-extern int n;
 
 /**
  * struct instruction_s - opcode and its function
@@ -41,28 +35,34 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-void free_stack(stack_t *stack);
-int check_space(char *string);
-int check_int(char *string);
-int check_comment(char *line);
-size_t len_stack(stack_t **stack);
-void pop(stack_t **stack, unsigned int line_number);
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
-void swap(stack_t **stack, unsigned int line_number);
-void add(stack_t **stack, unsigned int line_number);
-void mul(stack_t **stack, unsigned int line_number);
-void mod(stack_t **stack, unsigned int line_number);
-void division(stack_t **stack, unsigned int line_number);
-void pchar(stack_t **stack, unsigned int line_number);
-void pstr(stack_t **stack, unsigned int line_number);
-void rotl(stack_t **stack, unsigned int line_number);
-void rotr(stack_t **stack, unsigned int line_number);
-void sub(stack_t **stack, unsigned int line_number);
-void pint(stack_t **stack, unsigned int line_number);
-void nop(stack_t **stack, unsigned int line_number);
-void (*gof(char *command, unsigned int line_number))
-(stack_t **, unsigned int);
-void execution(char **inst_arr, unsigned int line_number);
+/**
+ * struct handle_argument - handle argument of opcode
+ *
+ * @num: string containg argument
+ * @textfile: pointer to the file
+ *
+ */
+typedef struct handle_argument
+{
+	char *num;
+	FILE *textfile;
+	char *str;
+} handle_t;
+
+extern handle_t arg;
+void free_the_stack(stack_t *head);
+void Push_To_Stack(stack_t **head, unsigned int n);
+void Print_Stack(stack_t **head, unsigned int line_num);
+void Top_Of_Stack(stack_t **head, unsigned int line_num);
+void pop(stack_t **head, unsigned int line_num);
+void swap(stack_t **head, unsigned int line_num);
+void add(stack_t **head, unsigned int line_num);
+void nop(stack_t **head, unsigned int line_num);
+void sub(stack_t **head, unsigned int line_num);
+void div_fun(stack_t **head, unsigned int line_num);
+void mul_fun(stack_t **head, unsigned int line_num);
+void mod_fun(stack_t **head, unsigned int line_num);
+void pchar_fun(stack_t **head, unsigned int line_num);
+void pstr_fun(stack_t **head, unsigned int line_num);
 
 #endif
