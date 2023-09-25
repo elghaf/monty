@@ -1,47 +1,50 @@
-#include "main.h"
+#define _POSIX_C_SOURCE 200809L
+#include "monty.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+vars var;
 
-int main(int argc, char *argv[])
+/**
+ * main - Start LIFO, FILO program
+ * @ac: Number of arguments
+ * @av: Pointer containing arguments
+ * Return: 0 Success, 1 Failed
+ */
+int main(int ac, char **av)
 {
-    stack_t *mystack = NULL;
-    char *bytecode_file = argv[1];
-    FILE *fp = fopen(bytecode_file, "r");
-    char line[1024];
-    instruction_t instructions[] = {
-        {"push", push},
-        {"NULL", NULL},
-    };
-    if (argc != 2)
-    {
-        fprintf(stderr, "Usage: %s <bytecode_file>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
-    if (fp == NULL)
-    {
-        fprintf(stderr, "Failed to open bytecode file: %s\n", bytecode_file);
-        return EXIT_FAILURE;
-    }
+	char *opcode;
 
-    while (fgets(line, sizeof(line), fp) != NULL)
-    {
-        char *opcode = strtok(line, " ");
-        if (opcode != NULL && strcmp(opcode, "push") == 0)
-        {
-            char *argument = strtok(NULL, " ");
-            if (argument != NULL)
-            {
-                int number = atoi(argument);
-                instructions[0].f(&mystack, number);
-            }
-        }
-    }
+	if (ac != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		return (EXIT_FAILURE);
+	}
 
-    fclose(fp);
+	if (start_vars(&var) != 0)
+		return (EXIT_FAILURE);
 
-    while (mystack != NULL)
-    {
-        printf("%d\n", mystack->n);
-        mystack = mystack->next;
-    }
+	var.file = fopen(av[1], "r");
+	if (!var.file)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
+		free_all();
+		return (EXIT_FAILURE);
+	}
 
-    return EXIT_SUCCESS;
+	while (getline(&var.buff, &var.tmp, var.file) != EOF)
+	{
+		opcode = strtok(var.buff, " \r\t\n");
+		if (opcode != NULL)
+			if (call_funct(&var, opcode) == EXIT_FAILURE)
+			{
+				free_all();
+				return (EXIT_FAILURE);
+			}
+		var.line_number++;
+	}
+
+	free_all();
+
+	return (EXIT_SUCCESS);
 }
