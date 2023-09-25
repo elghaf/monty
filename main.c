@@ -1,64 +1,82 @@
 #include "monty.h"
-bus_t monty_bus = {NULL, NULL, NULL, 0};
+stack_t *stack = NULL;
 
 /**
- * main - Monty main
- * @argc: number of arguments
- * @argv: Monty files
- * Return: none
+ * main - Entry point of the program
+ * @argc: Number of command line arguments
+ * @argv: Array of command line argument strings
+ * Return: Always returns 0
  */
+
 int main(int argc, char *argv[])
 {
-    char *line_content;
-    FILE *monty_file;
-    size_t line_size = 0;
-    ssize_t read_line = 1;
-    stack_t *stack = NULL;
-    unsigned int line_counter = 0;
-
-    if (argc != 2)
-    {
-        fprintf(stderr, "USAGE: monty file\n");
-        exit(EXIT_FAILURE);
-    }
-    monty_file = fopen(argv[1], "r");
-    monty_bus.file = monty_file;
-    if (!monty_file)
-    {
-        fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-        exit(EXIT_FAILURE);
-    }
-    while (read_line > 0)
-    {
-        line_content = NULL;
-        read_line = getline(&line_content, &line_size, monty_file);
-        monty_bus.content = line_content;
-        line_counter++;
-        if (read_line > 0)
-        {
-            instuction(line_content, &stack, line_counter, monty_file);
-        }
-        free(line_content);
-    }
-    free_stack(stack);
-    fclose(monty_file);
-    return (0);
+	if (argc != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+	open_and_parse_file(argv[1]);
+	free_stack();
+	return (0);
 }
 
-#include "monty.h"
 /**
- * frees - doubly linked list
- * @head: head of the stack
+ * create_node - Creates a new stack node
+ * @value: Value to be stored in the new node
+ * Return: A pointer to the newly created node, or NULL on failure
  */
-void frees(stack_t *head)
+stack_t *create_node(int value)
 {
-    stack_t *aux;
+	stack_t *new_node;
 
-    aux = head;
-    while (head)
-    {
-        aux = head->next;
-        free(head);
-        head = aux;
-    }
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
+		exit(EXIT_FAILURE);
+
+	new_node->next = NULL;
+	new_node->prev = NULL;
+	new_node->n = value;
+	return (new_node);
+}
+
+/**
+ * free_stack - Frees all nodes in the stack
+ */
+void free_stack(void)
+{
+	stack_t *current_node;
+
+	if (stack == NULL)
+		return;
+
+	while (stack != NULL)
+	{
+		current_node = stack;
+		stack = stack->next;
+		free(current_node);
+	}
+}
+
+/**
+ * add_to_stack - Adds a new node to the top of the stack
+ * @new_node: Pointer to the new node
+ * @line_number: Line number where the opcode appears
+ */
+void add_to_stack(stack_t **new_node, __attribute__((unused)) unsigned int line_number)
+{
+	stack_t *temp;
+
+	if (new_node == NULL || *new_node == NULL)
+		exit(EXIT_FAILURE);
+
+	if (stack == NULL)
+	{
+		stack = *new_node;
+		return;
+	}
+
+	temp = stack;
+	stack = *new_node;
+	(*new_node)->next = temp;
+	temp->prev = *new_node;
 }
