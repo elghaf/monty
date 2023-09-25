@@ -1,1 +1,1 @@
-# Learn about monty scripting language and implent LIFO and FIFO.
+# LIFO FIFO
