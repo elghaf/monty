@@ -2,23 +2,6 @@
 
 #define MAX_LINE_LENGTH 1024
 
-/**
- * free_stack - Frees a stack_t stack.
- * @stack: Pointer to the top of the stack.
- *
- * Return: void
- */
-void free_stack(stack_t *stack)
-{
-	stack_t *tempo;
-
-	while (stack != NULL)
-	{
-		tempo = stack;
-		stack = stack->next;
-		free(tempo);
-	}
-}
 
 /**
  * main - Entry point for the Monty interpreter.
@@ -100,20 +83,3 @@ void read_file(FILE *file_pointer, instruction_t opcodes[], stack_t **stack)
 	}
 }
 
-/**
- * pint - Prints a value at the top of the stack, followed by a newline.
- * @stack: Double pointer to the top of the stack.
- * @line: Line number of the current opcode.
- *
- * Return: void
- */
-void pint(stack_t **stack, unsigned int line)
-{
-	if (*stack == NULL)
-	{
-		fprintf(stderr, "L%u: can't pint, stack empty\n", line);
-		exit(EXIT_FAILURE);
-	}
-
-	printf("%d\n", (*stack)->n);
-}
